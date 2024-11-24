@@ -1,6 +1,8 @@
 using MauiApp1.Models;
 using MauiApp1.Services;
 using Microsoft.Maui.Controls;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace MauiApp1
 {
@@ -17,7 +19,7 @@ namespace MauiApp1
 
         private async void LoadCustomersAsync()
         {
-            var customers = await _databaseService.GetCustomersAsync();
+            var customers = await _databaseService.GetItemsAsync<Customer>();
             CustomersCollectionView.ItemsSource = customers;
         }
     }

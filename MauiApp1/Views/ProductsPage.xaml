@@ -4,7 +4,7 @@
              x:Class="MauiApp1.ProductsPage">
     <StackLayout>
         <Label Text="Welcome to the Products Page!"
-               VerticalOptions="CenterAndExpand"
-               HorizontalOptions="CenterAndExpand"/>
+               VerticalOptions="Center"
+               HorizontalOptions="Center"/>
     </StackLayout>
 </ContentPage>

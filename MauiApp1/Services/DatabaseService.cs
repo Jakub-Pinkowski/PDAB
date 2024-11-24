@@ -1,5 +1,4 @@
 using SQLite;
-using MauiApp1.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -12,29 +11,35 @@ namespace MauiApp1.Services
         public DatabaseService(string dbPath)
         {
             _database = new SQLiteAsyncConnection(dbPath);
-            _database.CreateTableAsync<Customer>().Wait();
         }
 
-        public Task<List<Customer>> GetCustomersAsync()
+        public Task CreateTableAsync<T>() where T : new()
         {
-            return _database.Table<Customer>().ToListAsync();
+            return _database.CreateTableAsync<T>();
         }
 
-        public Task<int> SaveCustomerAsync(Customer customer)
+        public Task<List<T>> GetItemsAsync<T>() where T : new()
         {
-            if (customer.Id != 0)
+            return _database.Table<T>().ToListAsync();
+        }
+
+        public Task<int> SaveItemAsync<T>(T item) where T : new()
+        {
+            var propertyInfo = item?.GetType().GetProperty("Id");
+            if (propertyInfo != null)
             {
-                return _database.UpdateAsync(customer);
+                var value = propertyInfo.GetValue(item);
+                if (value != null && (int)value != 0)
+                {
+                    return _database.UpdateAsync(item);
+                }
             }
-            else
-            {
-                return _database.InsertAsync(customer);
-            }
+            return _database.InsertAsync(item);
         }
 
-        public Task<int> DeleteCustomerAsync(Customer customer)
+        public Task<int> DeleteItemAsync<T>(T item) where T : new()
         {
-            return _database.DeleteAsync(customer);
+            return _database.DeleteAsync(item);
         }
     }
 }
