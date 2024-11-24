@@ -7,9 +7,20 @@
     Shell.FlyoutBehavior="Flyout"
     Title="MauiApp1">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    <FlyoutItem Title="Home">
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate local:MainPage}"/>
+        </Tab>
+    </FlyoutItem>
+    <FlyoutItem Title="Customers">
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate local:CustomersPage}"/>
+        </Tab>
+    </FlyoutItem>
+    <FlyoutItem Title="Products">
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate local:ProductsPage}"/>
+        </Tab>
+    </FlyoutItem>
 
 </Shell>
