@@ -3,20 +3,36 @@ using MauiApp1.Services;
 using Microsoft.Maui.Controls;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace MauiApp1
 {
-    public partial class ProductsPage : ContentPage
+    public partial class ProductsPage : ContentPage, INotifyPropertyChanged
     {
         private readonly DatabaseService _databaseService;
         private Product? _editingProduct;
+        private string _buttonText = "Add Product";
+
+        public new event PropertyChangedEventHandler? PropertyChanged;
 
         public ProductsPage(DatabaseService databaseService)
         {
             InitializeComponent();
+            BindingContext = this;
             _databaseService = databaseService;
             LoadProductsAsync();
+        }
+
+        public string ButtonText
+        {
+            get => _buttonText;
+            set
+            {
+                _buttonText = value;
+                OnPropertyChanged();
+            }
         }
 
         private async void LoadProductsAsync()
@@ -25,7 +41,6 @@ namespace MauiApp1
             ProductsCollectionView.ItemsSource = products;
         }
 
-        // TODO: Check if a given CategoryId and SupplierId exist in the database
         private async void OnAddProductClicked(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(NameEntry.Text) || NameEntry.Text.Length < 2 ||
@@ -57,6 +72,7 @@ namespace MauiApp1
                 _editingProduct.SupplierId = supplierId;
                 await _databaseService.SaveItemAsync(_editingProduct);
                 _editingProduct = null;
+                ButtonText = "Add Product";
             }
 
             LoadProductsAsync();
@@ -96,7 +112,13 @@ namespace MauiApp1
                 PriceEntry.Text = product.Price.ToString();
                 CategoryIdEntry.Text = product.CategoryId.ToString();
                 SupplierIdEntry.Text = product.SupplierId.ToString();
+                ButtonText = "Edit Product";
             }
+        }
+
+        protected new void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

@@ -23,7 +23,7 @@
             <Entry x:Name="SupplierIdEntry"
                    Placeholder="Supplier ID"
                    Keyboard="Numeric"/>
-            <Button Text="Add Product"
+            <Button Text="{Binding ButtonText}"
                     Clicked="OnAddProductClicked"/>
             <CollectionView x:Name="ProductsCollectionView">
                 <CollectionView.ItemTemplate>
