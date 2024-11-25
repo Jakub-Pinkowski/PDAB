@@ -40,7 +40,6 @@
                                             Text="Edit"
                                             Clicked="OnEditCustomerClicked"
                                             CommandParameter="{Binding .}"
-                                            BackgroundColor="#e9c46a"
                                             TextColor="#000814"
                                             CornerRadius="5"
                                             VerticalOptions="Center"
