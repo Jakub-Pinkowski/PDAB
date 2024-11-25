@@ -1,9 +1,6 @@
+using SQLite;
 using MauiApp1.Models;
 using MauiApp1.Services;
-using Microsoft.Maui.Controls;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace MauiApp1
 {
@@ -34,29 +31,40 @@ namespace MauiApp1
                 return;
             }
 
-            if (_editingCustomer == null)
+            try
             {
-                var newCustomer = new Customer
+                if (_editingCustomer == null)
                 {
-                    Name = NameEntry.Text,
-                    Email = NameEntry.Text
-                };
+                    var newCustomer = new Customer
+                    {
+                        Name = NameEntry.Text,
+                        Email = EmailEntry.Text
+                    };
 
-                await _databaseService.SaveItemAsync(newCustomer);
+                    await _databaseService.SaveItemAsync(newCustomer);
+                }
+                else
+                {
+                    _editingCustomer.Name = NameEntry.Text;
+                    _editingCustomer.Email = EmailEntry.Text;
+                    await _databaseService.SaveItemAsync(_editingCustomer);
+                    _editingCustomer = null;
+                }
+
+                LoadCustomersAsync();
+
+                // Reset the input fields
+                NameEntry.Text = string.Empty;
+                EmailEntry.Text = string.Empty;
             }
-            else
+            catch (SQLiteException ex) when (ex.Result == SQLite3.Result.Constraint)
             {
-                _editingCustomer.Name = NameEntry.Text;
-                _editingCustomer.Email = NameEntry.Text;
-                await _databaseService.SaveItemAsync(_editingCustomer);
-                _editingCustomer = null;
+                await DisplayAlert("Error", "A customer with this email already exists.", "OK");
             }
-
-            LoadCustomersAsync();
-
-            // Reset the input fields
-            NameEntry.Text = string.Empty;
-            EmailEntry.Text = string.Empty;
+            catch (Exception ex)
+            {
+                await DisplayAlert("Error", $"An error occurred: {ex.Message}", "OK");
+            }
         }
 
         private async void OnDeleteCustomerClicked(object sender, EventArgs e)

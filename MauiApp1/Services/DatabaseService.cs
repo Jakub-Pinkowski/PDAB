@@ -1,6 +1,7 @@
 using SQLite;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using MauiApp1.Models;
 
 namespace MauiApp1.Services
 {
@@ -40,6 +41,24 @@ namespace MauiApp1.Services
         public Task<int> DeleteItemAsync<T>(T item) where T : new()
         {
             return _database.DeleteAsync(item);
+        }
+
+        public async Task DropAllTablesAsync()
+        {
+            await _database.DropTableAsync<Product>();
+            // Add other tables here if you have more models
+        }
+
+        public async Task RecreateAllTablesAsync()
+        {
+            await CreateTableAsync<Product>();
+            // Add other tables here if you have more models
+        }
+
+        public async Task ResetDatabaseAsync()
+        {
+            await DropAllTablesAsync();
+            await RecreateAllTablesAsync();
         }
     }
 }
