@@ -21,8 +21,12 @@ namespace MauiApp1
 
         private async void OnResetDatabaseClicked(object sender, EventArgs e)
         {
-            await _databaseService.ResetDatabaseAsync();
-            await DisplayAlert("Success", "Database has been reset.", "OK");
+            bool confirm = await DisplayAlert("Confirm Reset", "Are you sure you want to reset the database? This action cannot be undone.", "Yes", "No");
+            if (confirm)
+            {
+                await _databaseService.ResetDatabaseAsync();
+                await DisplayAlert("Success", "Database has been reset.", "OK");
+            }
         }
     }
 }
