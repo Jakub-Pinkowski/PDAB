@@ -33,6 +33,25 @@
                         TextColor="#fefae0"
                         Margin="10,0,0,0"/>
             </HorizontalStackLayout>
+            <!-- Headers for the table -->
+            <Grid ColumnDefinitions="*,*,*,*,*,*"
+                  Padding="10,0">
+                <Label Text="Name"
+                       FontAttributes="Bold"
+                       VerticalOptions="Center"/>
+                <Label Text="Price"
+                       FontAttributes="Bold"
+                       VerticalOptions="Center"
+                       Grid.Column="1"/>
+                <Label Text="Category ID"
+                       FontAttributes="Bold"
+                       VerticalOptions="Center"
+                       Grid.Column="2"/>
+                <Label Text="Supplier ID"
+                       FontAttributes="Bold"
+                       VerticalOptions="Center"
+                       Grid.Column="3"/>
+            </Grid>
             <CollectionView x:Name="ProductsCollectionView">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="models:Product">
@@ -40,31 +59,33 @@
                             <Border Stroke="#fefae0"
                                     StrokeShape="RoundRectangle 10"
                                     Padding="5">
-                                <Grid ColumnDefinitions="*,Auto,Auto"
+                                <Grid ColumnDefinitions="*,*,*,*,*,*"
                                       Padding="10">
-                                    <StackLayout Orientation="Horizontal"
-                                                 Spacing="50">
-                                        <Label Text="{Binding Name}"
-                                               FontSize="20"
-                                               VerticalOptions="Center"/>
-                                        <Label Text="{Binding Price}"
-                                               FontSize="20"
-                                               VerticalOptions="Center"/>
-                                        <Label Text="{Binding CategoryId}"
-                                               FontSize="20"
-                                               VerticalOptions="Center"/>
-                                        <Label Text="{Binding SupplierId}"
-                                               FontSize="20"
-                                               VerticalOptions="Center"/>
-                                    </StackLayout>
-                                    <Button Grid.Column="1"
+                                    <Label Text="{Binding Name}"
+                                           FontSize="20"
+                                           VerticalOptions="Center"
+                                           Grid.Column="0"
+                                           />
+                                    <Label Text="{Binding Price}"
+                                           FontSize="20"
+                                           VerticalOptions="Center"
+                                           Grid.Column="1"/>
+                                    <Label Text="{Binding CategoryId}"
+                                           FontSize="20"
+                                           VerticalOptions="Center"
+                                           Grid.Column="2"/>
+                                    <Label Text="{Binding SupplierId}"
+                                           FontSize="20"
+                                           VerticalOptions="Center"
+                                           Grid.Column="3"/>
+                                    <Button Grid.Column="4"
                                             Text="Edit"
                                             Clicked="OnEditProductClicked"
                                             CommandParameter="{Binding .}"
                                             CornerRadius="5"
                                             VerticalOptions="Center"
                                             Margin="0,0,10,0"/>
-                                    <Button Grid.Column="2"
+                                    <Button Grid.Column="5"
                                             Text="Delete"
                                             Clicked="OnDeleteProductClicked"
                                             CommandParameter="{Binding .}"
