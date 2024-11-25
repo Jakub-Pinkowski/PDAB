@@ -10,7 +10,7 @@ namespace MauiApp1
     public partial class CustomersPage : ContentPage
     {
         private readonly DatabaseService _databaseService;
-        private Customer _editingCustomer;
+        private Customer? _editingCustomer;
 
         public CustomersPage(DatabaseService databaseService)
         {
@@ -39,7 +39,7 @@ namespace MauiApp1
                 var newCustomer = new Customer
                 {
                     Name = NameEntry.Text,
-                    Email = EmailEntry.Text
+                    Email = NameEntry.Text
                 };
 
                 await _databaseService.SaveItemAsync(newCustomer);
@@ -47,7 +47,7 @@ namespace MauiApp1
             else
             {
                 _editingCustomer.Name = NameEntry.Text;
-                _editingCustomer.Email = EmailEntry.Text;
+                _editingCustomer.Email = NameEntry.Text;
                 await _databaseService.SaveItemAsync(_editingCustomer);
                 _editingCustomer = null;
             }
