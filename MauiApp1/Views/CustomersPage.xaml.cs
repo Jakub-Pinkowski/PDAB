@@ -10,6 +10,7 @@ namespace MauiApp1
     public partial class CustomersPage : ContentPage
     {
         private readonly DatabaseService _databaseService;
+        private Customer _editingCustomer;
 
         public CustomersPage(DatabaseService databaseService)
         {
@@ -33,13 +34,24 @@ namespace MauiApp1
                 return;
             }
 
-            var newCustomer = new Customer
+            if (_editingCustomer == null)
             {
-                Name = NameEntry.Text,
-                Email = EmailEntry.Text
-            };
+                var newCustomer = new Customer
+                {
+                    Name = NameEntry.Text,
+                    Email = EmailEntry.Text
+                };
 
-            await _databaseService.SaveItemAsync(newCustomer);
+                await _databaseService.SaveItemAsync(newCustomer);
+            }
+            else
+            {
+                _editingCustomer.Name = NameEntry.Text;
+                _editingCustomer.Email = EmailEntry.Text;
+                await _databaseService.SaveItemAsync(_editingCustomer);
+                _editingCustomer = null;
+            }
+
             LoadCustomersAsync();
 
             // Reset the input fields
@@ -60,6 +72,19 @@ namespace MauiApp1
                     await _databaseService.DeleteItemAsync(customer);
                     LoadCustomersAsync();
                 }
+            }
+        }
+
+        private void OnEditCustomerClicked(object sender, EventArgs e)
+        {
+            var button = sender as Button;
+            var customer = button?.CommandParameter as Customer;
+
+            if (customer != null)
+            {
+                _editingCustomer = customer;
+                NameEntry.Text = customer.Name;
+                EmailEntry.Text = customer.Email;
             }
         }
     }
