@@ -22,5 +22,17 @@ namespace MauiApp1
             var customers = await _databaseService.GetItemsAsync<Customer>();
             CustomersCollectionView.ItemsSource = customers;
         }
+
+        private async void OnAddCustomerClicked(object sender, EventArgs e)
+        {
+            var newCustomer = new Customer
+            {
+                Name = NameEntry.Text,
+                Email = EmailEntry.Text
+            };
+
+            await _databaseService.SaveItemAsync(newCustomer);
+            LoadCustomersAsync();
+        }
     }
 }

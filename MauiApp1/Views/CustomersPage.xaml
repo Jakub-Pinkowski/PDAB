@@ -10,6 +10,9 @@
                 Text="Customer List"
                 Style="{StaticResource Headline}"
                 SemanticProperties.HeadingLevel="Level1" />
+            <Entry x:Name="NameEntry" Placeholder="Name" />
+            <Entry x:Name="EmailEntry" Placeholder="Email" />
+            <Button Text="Add Customer" Clicked="OnAddCustomerClicked" />
             <CollectionView x:Name="CustomersCollectionView">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
