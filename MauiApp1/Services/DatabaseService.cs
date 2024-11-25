@@ -43,16 +43,16 @@ namespace MauiApp1.Services
             return _database.DeleteAsync(item);
         }
 
+        // NOTE: Use VERY carefully
         public async Task DropAllTablesAsync()
         {
-            await _database.DropTableAsync<Product>();
-            // Add other tables here if you have more models
+            await _database.DropTableAsync<WishlistItem>();
         }
 
+        // NOTE: Use VERY carefully
         public async Task RecreateAllTablesAsync()
         {
-            await CreateTableAsync<Product>();
-            // Add other tables here if you have more models
+            await CreateTableAsync<WishlistItem>();
         }
 
         public async Task ResetDatabaseAsync()
