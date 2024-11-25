@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace MauiApp1
@@ -52,12 +53,29 @@ namespace MauiApp1
             CustomersCollectionView.ItemsSource = customers;
         }
 
+        private bool IsValidEmail(string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+                return false;
+
+            try
+            {
+                // Use Regex to check if the email is in a valid format
+                var emailRegex = new Regex(@"^[^@\s]+@[^@\s]+\.[^@\s]+$");
+                return emailRegex.IsMatch(email);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
         private async void OnAddCustomerClicked(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(NameEntry.Text) || NameEntry.Text.Length < 2 ||
-                string.IsNullOrWhiteSpace(EmailEntry.Text) || EmailEntry.Text.Length < 2)
+                string.IsNullOrWhiteSpace(EmailEntry.Text) || EmailEntry.Text.Length < 2 || !IsValidEmail(EmailEntry.Text))
             {
-                await DisplayAlert("Validation Error", "Name and Email must be at least 2 characters long.", "OK");
+                await DisplayAlert("Validation Error", "Name must be at least 2 characters long and Email must be a valid email address.", "OK");
                 return;
             }
 
