@@ -2,7 +2,7 @@ using SQLite;
 
 namespace MauiApp1.Models
 {
-    public class Wishlist
+    public class WishlistItem
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }

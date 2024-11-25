@@ -2,7 +2,7 @@ using SQLite;
 
 namespace MauiApp1.Models
 {
-    public class ShoppingCart
+    public class ShoppingCartItem
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }

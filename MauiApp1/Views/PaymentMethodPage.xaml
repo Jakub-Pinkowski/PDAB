@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiApp1.PaymentMethodPage"
+             xmlns:models="clr-namespace:MauiApp1.Models">
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="30,0"
+            Spacing="25">
+            <Label
+                Text="Payment Method List"
+                Style="{StaticResource Headline}"
+                SemanticProperties.HeadingLevel="Level1"
+                Margin="0,20,0,0"/>
+            <Entry x:Name="CustomerIdEntry"
+                   Placeholder="Customer ID"
+                   Keyboard="Numeric"/>
+            <Entry x:Name="CardNumberEntry"
+                   Placeholder="Card Number"/>
+            <Entry x:Name="ExpirationDateEntry"
+                   Placeholder="Expiration Date"
+                   Keyboard="Numeric"/>
+            <HorizontalStackLayout>
+                <Button Text="{Binding ButtonText}"
+                        Clicked="OnAddPaymentMethodClicked"/>
+                <Button Text="Cancel"
+                        Clicked="OnCancelEditClicked"
+                        IsVisible="{Binding IsEditing}"
+                        BackgroundColor="#c1121f"
+                        TextColor="#fefae0"
+                        Margin="10,0,0,0"/>
+            </HorizontalStackLayout>
+            <!-- Headers for the table -->
+            <Grid ColumnDefinitions="2*,*,*,0.5*,0.5*"
+                  Padding="10,0">
+                <Label Text="Customer ID"
+                       FontAttributes="Bold"
+                       VerticalOptions="Center"/>
+                <Label Text="Card Number"
+                       FontAttributes="Bold"
+                       VerticalOptions="Center"
+                       Grid.Column="1"/>
+                <Label Text="Expiration Date"
+                       FontAttributes="Bold"
+                       VerticalOptions="Center"
+                       Grid.Column="2"/>
+            </Grid>
+            <CollectionView x:Name="PaymentMethodsCollectionView">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:PaymentMethod">
+                        <VerticalStackLayout Margin="0,5">
+                            <Border Stroke="#fefae0"
+                                    StrokeShape="RoundRectangle 10"
+                                    Padding="5">
+                                <Grid ColumnDefinitions="2*,*,*,0.5*,0.5*"
+                                      Padding="10">
+                                    <Label Text="{Binding CustomerId}"
+                                           FontSize="20"
+                                           VerticalOptions="Center"
+                                           Grid.Column="0"/>
+                                    <Label Text="{Binding CardNumber}"
+                                           FontSize="20"
+                                           VerticalOptions="Center"
+                                           Grid.Column="1"/>
+                                    <Label Text="{Binding ExpirationDate, StringFormat='{0:yyyy-MM-dd}'}"
+                                           FontSize="20"
+                                           VerticalOptions="Center"
+                                           Grid.Column="2"/>
+                                    <Button Grid.Column="3"
+                                            Text="Edit"
+                                            Clicked="OnEditPaymentMethodClicked"
+                                            CommandParameter="{Binding .}"
+                                            CornerRadius="5"
+                                            VerticalOptions="Center"
+                                            Margin="0,0,10,0"/>
+                                    <Button Grid.Column="4"
+                                            Text="Delete"
+                                            Clicked="OnDeletePaymentMethodClicked"
+                                            CommandParameter="{Binding .}"
+                                            BackgroundColor="#c1121f"
+                                            TextColor="#fefae0"
+                                            CornerRadius="5"
+                                            VerticalOptions="Center"
+                                            Margin="10,0,0,0"/>
+                                </Grid>
+                            </Border>
+                        </VerticalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

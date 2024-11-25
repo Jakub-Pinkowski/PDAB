@@ -12,14 +12,79 @@
             <ShellContent ContentTemplate="{DataTemplate local:MainPage}"/>
         </Tab>
     </FlyoutItem>
-    <FlyoutItem Title="Customers">
+    <FlyoutItem Title="Address">
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate local:AddressPage}"/>
+        </Tab>
+    </FlyoutItem>
+    <FlyoutItem Title="Category">
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate local:CategoriesPage}"/>
+        </Tab>
+    </FlyoutItem>
+    <FlyoutItem Title="Customer">
         <Tab>
             <ShellContent ContentTemplate="{DataTemplate local:CustomersPage}"/>
         </Tab>
     </FlyoutItem>
-    <FlyoutItem Title="Products">
+    <FlyoutItem Title="Discount">
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate local:DiscountPage}"/>
+        </Tab>
+    </FlyoutItem>
+    <FlyoutItem Title="Invoice">
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate local:InvoicePage}"/>
+        </Tab>
+    </FlyoutItem>
+    <FlyoutItem Title="Order">
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate local:OrderPage}"/>
+        </Tab>
+    </FlyoutItem>
+    <FlyoutItem Title="OrderItem">
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate local:OrderItemPage}"/>
+        </Tab>
+    </FlyoutItem>
+    <FlyoutItem Title="PaymentMethod">
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate local:PaymentMethodPage}"/>
+        </Tab>
+    </FlyoutItem>
+    <FlyoutItem Title="Product">
         <Tab>
             <ShellContent ContentTemplate="{DataTemplate local:ProductsPage}"/>
+        </Tab>
+    </FlyoutItem>
+    <FlyoutItem Title="Review">
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate local:ReviewPage}"/>
+        </Tab>
+    </FlyoutItem>
+    <FlyoutItem Title="Shipper">
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate local:ShipperPage}"/>
+        </Tab>
+    </FlyoutItem>
+    <FlyoutItem Title="ShoppingCart">
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate local:ShoppingCartPage}"/>
+        </Tab>
+    </FlyoutItem>
+    <FlyoutItem Title="Supplier">
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate local:SupplierPage}"/>
+        </Tab>
+    </FlyoutItem>
+    <FlyoutItem Title="Transaction">
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate local:TransactionPage}"/>
+        </Tab>
+    </FlyoutItem>
+    <FlyoutItem Title="Wishlist">
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate local:WishlistPage}"/>
         </Tab>
     </FlyoutItem>
 
