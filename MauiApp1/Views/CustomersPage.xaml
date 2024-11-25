@@ -17,11 +17,24 @@
             <CollectionView x:Name="CustomersCollectionView">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="models:Customer">
-                        <StackLayout Orientation="Horizontal" Padding="10">
-                            <Label Text="{Binding Name}" FontSize="20" />
-                            <Label Text="{Binding Email}" FontSize="20" />
-                            <Button Text="Delete" Clicked="OnDeleteCustomerClicked" CommandParameter="{Binding .}" />
-                        </StackLayout>
+                        <VerticalStackLayout Margin="0,5">
+                            <Border Stroke="#fefae0" StrokeShape="RoundRectangle 10" Padding="5">
+                                <Grid ColumnDefinitions="*,Auto" Padding="10">
+                                    <StackLayout Orientation="Horizontal" Spacing="50">
+                                        <Label Text="{Binding Name}" FontSize="20" VerticalOptions="Center" />
+                                        <Label Text="{Binding Email}" FontSize="20" VerticalOptions="Center" />
+                                    </StackLayout>
+                                    <Button Grid.Column="1"
+                                            Text="Delete"
+                                            Clicked="OnDeleteCustomerClicked"
+                                            CommandParameter="{Binding .}"
+                                            BackgroundColor="#c1121f"
+                                            TextColor="#fefae0"
+                                            CornerRadius="5"
+                                            VerticalOptions="Center"/>
+                                </Grid>
+                            </Border>
+                        </VerticalStackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
