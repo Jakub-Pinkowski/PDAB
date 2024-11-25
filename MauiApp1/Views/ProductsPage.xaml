@@ -23,8 +23,16 @@
             <Entry x:Name="SupplierIdEntry"
                    Placeholder="Supplier ID"
                    Keyboard="Numeric"/>
-            <Button Text="{Binding ButtonText}"
-                    Clicked="OnAddProductClicked"/>
+            <HorizontalStackLayout>
+                <Button Text="{Binding ButtonText}"
+                        Clicked="OnAddProductClicked"/>
+                <Button Text="Cancel"
+                        Clicked="OnCancelEditClicked"
+                        IsVisible="{Binding IsEditing}"
+                        BackgroundColor="#c1121f"
+                        TextColor="#fefae0"
+                        Margin="10,0,0,0"/>
+            </HorizontalStackLayout>
             <CollectionView x:Name="ProductsCollectionView">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="models:Product">
@@ -53,7 +61,6 @@
                                             Text="Edit"
                                             Clicked="OnEditProductClicked"
                                             CommandParameter="{Binding .}"
-                                            TextColor="#000814"
                                             CornerRadius="5"
                                             VerticalOptions="Center"
                                             Margin="0,0,10,0"/>

@@ -14,6 +14,7 @@ namespace MauiApp1
         private readonly DatabaseService _databaseService;
         private Product? _editingProduct;
         private string _buttonText = "Add Product";
+        private bool _isEditing = false;
 
         public new event PropertyChangedEventHandler? PropertyChanged;
 
@@ -31,6 +32,16 @@ namespace MauiApp1
             set
             {
                 _buttonText = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool IsEditing
+        {
+            get => _isEditing;
+            set
+            {
+                _isEditing = value;
                 OnPropertyChanged();
             }
         }
@@ -73,6 +84,7 @@ namespace MauiApp1
                 await _databaseService.SaveItemAsync(_editingProduct);
                 _editingProduct = null;
                 ButtonText = "Add Product";
+                IsEditing = false;
             }
 
             LoadProductsAsync();
@@ -113,7 +125,21 @@ namespace MauiApp1
                 CategoryIdEntry.Text = product.CategoryId.ToString();
                 SupplierIdEntry.Text = product.SupplierId.ToString();
                 ButtonText = "Edit Product";
+                IsEditing = true;
             }
+        }
+
+        private void OnCancelEditClicked(object sender, EventArgs e)
+        {
+            _editingProduct = null;
+            ButtonText = "Add Product";
+            IsEditing = false;
+
+            // Reset the input fields
+            NameEntry.Text = string.Empty;
+            PriceEntry.Text = string.Empty;
+            CategoryIdEntry.Text = string.Empty;
+            SupplierIdEntry.Text = string.Empty;
         }
 
         protected new void OnPropertyChanged([CallerMemberName] string? propertyName = null)
