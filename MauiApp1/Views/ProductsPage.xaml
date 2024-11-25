@@ -15,7 +15,14 @@
             <Entry x:Name="NameEntry"
                    Placeholder="Name"/>
             <Entry x:Name="PriceEntry"
-                   Placeholder="Price"/>
+                   Placeholder="Price"
+                   Keyboard="Numeric"/>
+            <Entry x:Name="CategoryIdEntry"
+                   Placeholder="Category ID"
+                   Keyboard="Numeric"/>
+            <Entry x:Name="SupplierIdEntry"
+                   Placeholder="Supplier ID"
+                   Keyboard="Numeric"/>
             <Button Text="Add Product"
                     Clicked="OnAddProductClicked"/>
             <CollectionView x:Name="ProductsCollectionView">
@@ -33,6 +40,12 @@
                                                FontSize="20"
                                                VerticalOptions="Center"/>
                                         <Label Text="{Binding Price}"
+                                               FontSize="20"
+                                               VerticalOptions="Center"/>
+                                        <Label Text="{Binding CategoryId}"
+                                               FontSize="20"
+                                               VerticalOptions="Center"/>
+                                        <Label Text="{Binding SupplierId}"
                                                FontSize="20"
                                                VerticalOptions="Center"/>
                                     </StackLayout>

@@ -25,12 +25,15 @@ namespace MauiApp1
             ProductsCollectionView.ItemsSource = products;
         }
 
+        // TODO: Check if a given CategoryId and SupplierId exist in the database
         private async void OnAddProductClicked(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(NameEntry.Text) || NameEntry.Text.Length < 2 ||
-                string.IsNullOrWhiteSpace(PriceEntry.Text) || !decimal.TryParse(PriceEntry.Text, out _))
+                string.IsNullOrWhiteSpace(PriceEntry.Text) || !decimal.TryParse(PriceEntry.Text, out var price) || price <= 0 ||
+                string.IsNullOrWhiteSpace(CategoryIdEntry.Text) || !int.TryParse(CategoryIdEntry.Text, out var categoryId) || categoryId <= 0 ||
+                string.IsNullOrWhiteSpace(SupplierIdEntry.Text) || !int.TryParse(SupplierIdEntry.Text, out var supplierId) || supplierId <= 0)
             {
-                await DisplayAlert("Validation Error", "Name must be at least 2 characters long and Price must be a valid number.", "OK");
+                await DisplayAlert("Validation Error", "Please ensure all fields are filled correctly. Name must be at least 2 characters long, Price must be a positive number, and CategoryId and SupplierId must be valid positive integers.", "OK");
                 return;
             }
 
@@ -39,7 +42,9 @@ namespace MauiApp1
                 var newProduct = new Product
                 {
                     Name = NameEntry.Text,
-                    Price = decimal.Parse(PriceEntry.Text)
+                    Price = price,
+                    CategoryId = categoryId,
+                    SupplierId = supplierId
                 };
 
                 await _databaseService.SaveItemAsync(newProduct);
@@ -47,7 +52,9 @@ namespace MauiApp1
             else
             {
                 _editingProduct.Name = NameEntry.Text;
-                _editingProduct.Price = decimal.Parse(PriceEntry.Text);
+                _editingProduct.Price = price;
+                _editingProduct.CategoryId = categoryId;
+                _editingProduct.SupplierId = supplierId;
                 await _databaseService.SaveItemAsync(_editingProduct);
                 _editingProduct = null;
             }
@@ -57,6 +64,8 @@ namespace MauiApp1
             // Reset the input fields
             NameEntry.Text = string.Empty;
             PriceEntry.Text = string.Empty;
+            CategoryIdEntry.Text = string.Empty;
+            SupplierIdEntry.Text = string.Empty;
         }
 
         private async void OnDeleteProductClicked(object sender, EventArgs e)
@@ -85,6 +94,8 @@ namespace MauiApp1
                 _editingProduct = product;
                 NameEntry.Text = product.Name;
                 PriceEntry.Text = product.Price.ToString();
+                CategoryIdEntry.Text = product.CategoryId.ToString();
+                SupplierIdEntry.Text = product.SupplierId.ToString();
             }
         }
     }
