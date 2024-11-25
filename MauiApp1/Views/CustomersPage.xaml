@@ -19,6 +19,7 @@
                         <StackLayout Orientation="Horizontal" Padding="10">
                             <Label Text="{Binding Name}" FontSize="20" />
                             <Label Text="{Binding Email}" FontSize="20" />
+                            <Button Text="Delete" Clicked="OnDeleteCustomerClicked" CommandParameter="{Binding .}" />
                         </StackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

@@ -39,5 +39,17 @@ namespace MauiApp1
             NameEntry.Text = string.Empty;
             EmailEntry.Text = string.Empty;
         }
+
+        private async void OnDeleteCustomerClicked(object sender, EventArgs e)
+        {
+            var button = sender as Button;
+            var customer = button?.CommandParameter as Customer;
+
+            if (customer != null)
+            {
+                await _databaseService.DeleteItemAsync(customer);
+                LoadCustomersAsync();
+            }
+        }
     }
 }
