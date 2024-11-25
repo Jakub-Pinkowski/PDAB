@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MauiApp1.CustomersPage">
+             x:Class="MauiApp1.CustomersPage"
+             xmlns:models="clr-namespace:MauiApp1.Models">
     <ScrollView>
         <VerticalStackLayout
             Padding="30,0"
@@ -15,7 +16,7 @@
             <Button Text="Add Customer" Clicked="OnAddCustomerClicked" />
             <CollectionView x:Name="CustomersCollectionView">
                 <CollectionView.ItemTemplate>
-                    <DataTemplate>
+                    <DataTemplate x:DataType="models:Customer">
                         <StackLayout Orientation="Horizontal" Padding="10">
                             <Label Text="{Binding Name}" FontSize="20" />
                             <Label Text="{Binding Email}" FontSize="20" />
