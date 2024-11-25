@@ -15,6 +15,9 @@
                 Text="My app is here!"
                 Style="{StaticResource Headline}"
                 SemanticProperties.HeadingLevel="Level1" />
+            <Button
+                Text="Reset Database"
+                Clicked="OnResetDatabaseClicked" />
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
