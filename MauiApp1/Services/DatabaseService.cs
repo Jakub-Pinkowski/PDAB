@@ -43,7 +43,22 @@ namespace MauiApp1.Services
             return _database.DeleteAsync(item);
         }
 
-        // NOTE: Use VERY carefully
+        public async Task<List<CustomerOrder>> GetCustomerOrdersAsync()
+        {
+            return await _database.QueryAsync<CustomerOrder>(@"
+                SELECT 
+                    c.Name AS CustomerName,
+                    o.Id AS OrderId,
+                    o.OrderDate,
+                    i.TotalAmount
+                FROM 
+                    Customer c
+                JOIN 
+                    [Order] o ON c.Id = o.CustomerId
+                JOIN 
+                    Invoice i ON o.Id = i.OrderId;
+            ");
+        }
         public async Task DropAllTablesAsync()
         {
             await _database.DropTableAsync<Address>();
@@ -63,7 +78,7 @@ namespace MauiApp1.Services
             await _database.DropTableAsync<WishlistItem>();
         }
 
-        // NOTE: Use VERY carefully
+
         public async Task RecreateAllTablesAsync()
         {
             await CreateTableAsync<Address>();
@@ -296,6 +311,7 @@ namespace MauiApp1.Services
             }
         }
 
+        // NOTE: Use VERY carefully
         public async Task ResetDatabaseAsync()
         {
             await DropAllTablesAsync();

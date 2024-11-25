@@ -17,6 +17,7 @@ namespace MauiApp1
         {
             InitializeComponent();
             _databaseService = databaseService;
+            LoadCustomerOrders();
         }
 
         private async void OnResetDatabaseClicked(object sender, EventArgs e)
@@ -26,7 +27,15 @@ namespace MauiApp1
             {
                 await _databaseService.ResetDatabaseAsync();
                 await DisplayAlert("Success", "Database has been reset.", "OK");
+                // Reload the data after resetting the database
+                LoadCustomerOrders();
             }
+        }
+
+        private async void LoadCustomerOrders()
+        {
+            var customerOrders = await _databaseService.GetCustomerOrdersAsync();
+            CustomerOrdersListView.ItemsSource = customerOrders;
         }
     }
 }

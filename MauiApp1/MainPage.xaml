@@ -18,6 +18,13 @@
             <Button
                 Text="Reset Database"
                 Clicked="OnResetDatabaseClicked" />
+            <ListView x:Name="CustomerOrdersListView">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Text="{Binding CustomerName}" Detail="{Binding TotalAmount}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
