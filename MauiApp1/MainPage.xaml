@@ -10,18 +10,24 @@
                 Source="dotnet_bot.png"
                 HeightRequest="185"
                 Aspect="AspectFit"
-                SemanticProperties.Description="dot net bot in a hovercraft number nine" />
+                SemanticProperties.Description="dot net bot in a hovercraft number nine"/>
             <Label
-                Text="My app is here!"
+                Text="Home"
                 Style="{StaticResource Headline}"
-                SemanticProperties.HeadingLevel="Level1" />
+                SemanticProperties.HeadingLevel="Level1"/>
             <Button
                 Text="Reset Database"
-                Clicked="OnResetDatabaseClicked" />
+                Clicked="OnResetDatabaseClicked"/>
+            <Label
+                Text="Customer Orders"
+                Style="{StaticResource Headline}"
+                SemanticProperties.HeadingLevel="Level2"
+                HorizontalOptions="Start"/>
             <ListView x:Name="CustomerOrdersListView">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <TextCell Text="{Binding CustomerName}" Detail="{Binding TotalAmount}" />
+                        <TextCell Text="{Binding CustomerName}"
+                                  Detail="{Binding TotalAmount}"/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
