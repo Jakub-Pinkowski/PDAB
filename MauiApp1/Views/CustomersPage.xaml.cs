@@ -47,8 +47,12 @@ namespace MauiApp1
 
             if (customer != null)
             {
-                await _databaseService.DeleteItemAsync(customer);
-                LoadCustomersAsync();
+                bool confirm = await DisplayAlert("Confirm Delete", $"Are you sure you want to delete {customer.Name}?", "Yes", "No");
+                if (confirm)
+                {
+                    await _databaseService.DeleteItemAsync(customer);
+                    LoadCustomersAsync();
+                }
             }
         }
     }
