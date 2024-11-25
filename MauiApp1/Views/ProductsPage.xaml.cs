@@ -52,6 +52,7 @@ namespace MauiApp1
             ProductsCollectionView.ItemsSource = products;
         }
 
+        // TODO: Check if a given Category or Supplier exists before saving a Product
         private async void OnAddProductClicked(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(NameEntry.Text) || NameEntry.Text.Length < 2 ||
