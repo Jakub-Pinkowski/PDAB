@@ -26,6 +26,13 @@ namespace MauiApp1
 
         private async void OnAddCustomerClicked(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(NameEntry.Text) || NameEntry.Text.Length < 2 ||
+                string.IsNullOrWhiteSpace(EmailEntry.Text) || EmailEntry.Text.Length < 2)
+            {
+                await DisplayAlert("Validation Error", "Name and Email must be at least 2 characters long.", "OK");
+                return;
+            }
+
             var newCustomer = new Customer
             {
                 Name = NameEntry.Text,
