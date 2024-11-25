@@ -1,6 +1,7 @@
 using MauiApp1.Models;
 using MauiApp1.Services;
 using Microsoft.Maui.Controls;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -33,6 +34,10 @@ namespace MauiApp1
 
             await _databaseService.SaveItemAsync(newCustomer);
             LoadCustomersAsync();
+
+            // Reset the input fields
+            NameEntry.Text = string.Empty;
+            EmailEntry.Text = string.Empty;
         }
     }
 }
