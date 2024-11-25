@@ -17,7 +17,7 @@ namespace MauiApp1
         {
             InitializeComponent();
             _databaseService = databaseService;
-            LoadCustomerOrders();
+            LoadData();
         }
 
         private async void OnResetDatabaseClicked(object sender, EventArgs e)
@@ -28,14 +28,33 @@ namespace MauiApp1
                 await _databaseService.ResetDatabaseAsync();
                 await DisplayAlert("Success", "Database has been reset.", "OK");
                 // Reload the data after resetting the database
-                LoadCustomerOrders();
+                LoadData();
             }
         }
 
-        private async void LoadCustomerOrders()
+        private async void LoadData()
+        {
+            await LoadCustomerOrders();
+            await LoadProductReviews();
+            await LoadOrderDetails();
+        }
+
+        private async Task LoadCustomerOrders()
         {
             var customerOrders = await _databaseService.GetCustomerOrdersAsync();
             CustomerOrdersListView.ItemsSource = customerOrders;
+        }
+
+        private async Task LoadProductReviews()
+        {
+            var productReviews = await _databaseService.GetProductReviewsAsync();
+            ProductReviewsListView.ItemsSource = productReviews;
+        }
+
+        private async Task LoadOrderDetails()
+        {
+            var orderDetails = await _databaseService.GetOrderDetailsAsync();
+            OrderDetailsListView.ItemsSource = orderDetails;
         }
     }
 }

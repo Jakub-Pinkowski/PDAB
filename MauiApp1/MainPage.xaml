@@ -37,6 +37,44 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+            <Label
+                Text="Product Reviews"
+                Style="{StaticResource Headline}"
+                SemanticProperties.HeadingLevel="Level2"
+                HorizontalOptions="Start"/>
+            <Label
+                Text="Business logic view #2"
+                Style="{StaticResource Headline}"
+                SemanticProperties.HeadingLevel="Level3"
+                HorizontalOptions="Start"
+                FontSize="Large"/>
+            <ListView x:Name="ProductReviewsListView">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Text="{Binding ProductName}"
+                                  Detail="{Binding Comment}"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Label
+                Text="Order Details"
+                Style="{StaticResource Headline}"
+                SemanticProperties.HeadingLevel="Level2"
+                HorizontalOptions="Start"/>
+            <Label
+                Text="Business logic view #3"
+                Style="{StaticResource Headline}"
+                SemanticProperties.HeadingLevel="Level3"
+                HorizontalOptions="Start"
+                FontSize="Large"/>
+            <ListView x:Name="OrderDetailsListView">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Text="{Binding ProductName}"
+                                  Detail="{Binding Quantity}"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

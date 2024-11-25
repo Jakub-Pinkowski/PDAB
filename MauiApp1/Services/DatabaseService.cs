@@ -59,6 +59,46 @@ namespace MauiApp1.Services
                     Invoice i ON o.Id = i.OrderId;
             ");
         }
+        public async Task<List<ProductReview>> GetProductReviewsAsync()
+        {
+            return await _database.QueryAsync<ProductReview>(@"
+        SELECT 
+            p.Name AS ProductName,
+            r.Rating,
+            r.Comment,
+            c.Name AS CustomerName,
+            cat.Name AS CategoryName
+        FROM 
+            Product p
+        JOIN 
+            Review r ON p.Id = r.ProductId
+        JOIN 
+            Customer c ON r.CustomerId = c.Id
+        JOIN 
+            Category cat ON p.CategoryId = cat.Id;
+    ");
+        }
+
+        public async Task<List<OrderDetail>> GetOrderDetailsAsync()
+        {
+            return await _database.QueryAsync<OrderDetail>(@"
+        SELECT 
+            o.Id AS OrderId,
+            o.OrderDate,
+            p.Name AS ProductName,
+            oi.Quantity,
+            oi.Price,
+            i.TotalAmount
+        FROM 
+            [Order] o
+        JOIN 
+            OrderItem oi ON o.Id = oi.OrderId
+        JOIN 
+            Product p ON oi.ProductId = p.Id
+        JOIN 
+            Invoice i ON o.Id = i.OrderId;
+    ");
+        }
         public async Task DropAllTablesAsync()
         {
             await _database.DropTableAsync<Address>();
