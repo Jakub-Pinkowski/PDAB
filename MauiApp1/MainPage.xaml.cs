@@ -20,6 +20,21 @@ namespace MauiApp1
             LoadData();
         }
 
+        private async void OnBackupDatabaseClicked(object sender, EventArgs e)
+        {
+            try
+            {
+                var backupPath = Path.Combine(FileSystem.AppDataDirectory, "database_backup.db");
+
+                await _databaseService.BackupDatabaseAsync(backupPath);
+                await DisplayAlert("Success", $"Database backup created successfully at {backupPath}.", "OK");
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Error", $"Failed to create database backup: {ex.Message}", "OK");
+            }
+        }
+
         private async void OnResetDatabaseClicked(object sender, EventArgs e)
         {
             bool confirm = await DisplayAlert("Confirm Reset", "Are you sure you want to reset the database? This action cannot be undone.", "Yes", "No");

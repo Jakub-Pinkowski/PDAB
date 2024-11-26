@@ -22,6 +22,10 @@
             <Button
                 Text="Reset Database - USE WITH CAUTION!"
                 Clicked="OnResetDatabaseClicked"/>
+
+            <Button
+                Text="Backup Database"
+                Clicked="OnBackupDatabaseClicked"/>
             <!-- Customer Orders View -->
             <Label
                 Text="Customer Orders - business logic view #1"

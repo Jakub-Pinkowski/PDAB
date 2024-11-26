@@ -359,5 +359,27 @@ namespace MauiApp1.Services
             await RecreateAllTablesAsync();
             await PopulateTablesWithDummyDataAsync();
         }
+
+        public async Task BackupDatabaseAsync(string backupPath)
+        {
+            try
+            {
+                var databasePath = _database.DatabasePath;
+                if (File.Exists(databasePath))
+                {
+                    File.Copy(databasePath, backupPath, overwrite: true);
+                    await Task.CompletedTask;
+                }
+                else
+                {
+                    throw new FileNotFoundException("Database file not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or handle it as needed
+                throw new Exception($"Failed to create database backup: {ex.Message}", ex);
+            }
+        }
     }
 }
