@@ -16,7 +16,7 @@
                 Style="{StaticResource Headline}"
                 SemanticProperties.HeadingLevel="Level1"/>
             <Label
-                Text="All the tables can be accessed via a hamburger menu on the top left corner."
+                Text="All the tables can be accessed via a hamburger menu in the top left corner."
                 Style="{StaticResource Headline}"
                 SemanticProperties.HeadingLevel="Level2"/>
             <Button
