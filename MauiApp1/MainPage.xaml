@@ -12,7 +12,7 @@
                 Aspect="AspectFit"
                 SemanticProperties.Description="dot net bot in a hovercraft number nine"/>
             <Label
-                Text="Home"
+                Text="My app is here!"
                 Style="{StaticResource Headline}"
                 SemanticProperties.HeadingLevel="Level1"/>
             <Button
@@ -21,57 +21,175 @@
             <Label
                 Text="Customer Orders"
                 Style="{StaticResource Headline}"
-                SemanticProperties.HeadingLevel="Level2"
-                HorizontalOptions="Start"/>
-            <Label
-                Text="Business logic view #1"
-                Style="{StaticResource Headline}"
-                SemanticProperties.HeadingLevel="Level3"
-                HorizontalOptions="Start"
-                FontSize="Large"/>
-            <ListView x:Name="CustomerOrdersListView">
+                SemanticProperties.HeadingLevel="Level2"/>
+            <ListView x:Name="CustomerOrdersListView"
+                    HasUnevenRows="True">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <TextCell Text="{Binding CustomerName}"
-                                  Detail="{Binding TotalAmount}"/>
+                        <ViewCell>
+                            <Grid Padding="10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Text="Customer:"
+                                       FontAttributes="Bold"
+                                       Grid.Row="0"
+                                       Grid.Column="0"/>
+                                <Label Text="{Binding CustomerName}"
+                                       Grid.Row="0"
+                                       Grid.Column="1"/>
+                                <Label Text="Order Date:"
+                                       FontAttributes="Bold"
+                                       Grid.Row="1"
+                                       Grid.Column="0"/>
+                                <Label Text="{Binding OrderDate, StringFormat='Order Date: {0:MM/dd/yyyy}'}"
+                                       Grid.Row="1"
+                                       Grid.Column="1"/>
+                                <Label Text="Total Amount:"
+                                       FontAttributes="Bold"
+                                       Grid.Row="2"
+                                       Grid.Column="0"/>
+                                <Label Text="{Binding TotalAmount, StringFormat='Total Amount: {0:C}'}"
+                                       Grid.Row="2"
+                                       Grid.Column="1"/>
+                            </Grid>
+                        </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
             <Label
                 Text="Product Reviews"
                 Style="{StaticResource Headline}"
-                SemanticProperties.HeadingLevel="Level2"
-                HorizontalOptions="Start"/>
-            <Label
-                Text="Business logic view #2"
-                Style="{StaticResource Headline}"
-                SemanticProperties.HeadingLevel="Level3"
-                HorizontalOptions="Start"
-                FontSize="Large"/>
-            <ListView x:Name="ProductReviewsListView">
+                SemanticProperties.HeadingLevel="Level2"/>
+            <ListView x:Name="ProductReviewsListView"
+                    HasUnevenRows="True">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <TextCell Text="{Binding ProductName}"
-                                  Detail="{Binding Comment}"/>
+                        <ViewCell>
+                            <Grid Padding="10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Text="Product:"
+                                       FontAttributes="Bold"
+                                       Grid.Row="0"
+                                       Grid.Column="0"/>
+                                <Label Text="{Binding ProductName}"
+                                       Grid.Row="0"
+                                       Grid.Column="1"/>
+                                <Label Text="Reviewed by:"
+                                       FontAttributes="Bold"
+                                       Grid.Row="1"
+                                       Grid.Column="0"/>
+                                <Label Text="{Binding CustomerName}"
+                                       Grid.Row="1"
+                                       Grid.Column="1"/>
+                                <Label Text="Rating:"
+                                       FontAttributes="Bold"
+                                       Grid.Row="2"
+                                       Grid.Column="0"/>
+                                <Label Text="{Binding Rating}"
+                                       Grid.Row="2"
+                                       Grid.Column="1"/>
+                                <Label Text="Comment:"
+                                       FontAttributes="Bold"
+                                       Grid.Row="3"
+                                       Grid.Column="0"/>
+                                <Label Text="{Binding Comment}"
+                                       Grid.Row="3"
+                                       Grid.Column="1"/>
+                                <Label Text="Category:"
+                                       FontAttributes="Bold"
+                                       Grid.Row="4"
+                                       Grid.Column="0"/>
+                                <Label Text="{Binding CategoryName}"
+                                       Grid.Row="4"
+                                       Grid.Column="1"/>
+                            </Grid>
+                        </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
             <Label
                 Text="Order Details"
                 Style="{StaticResource Headline}"
-                SemanticProperties.HeadingLevel="Level2"
-                HorizontalOptions="Start"/>
-            <Label
-                Text="Business logic view #3"
-                Style="{StaticResource Headline}"
-                SemanticProperties.HeadingLevel="Level3"
-                HorizontalOptions="Start"
-                FontSize="Large"/>
-            <ListView x:Name="OrderDetailsListView">
+                SemanticProperties.HeadingLevel="Level2"/>
+            <ListView x:Name="OrderDetailsListView"
+                    HasUnevenRows="True">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <TextCell Text="{Binding ProductName}"
-                                  Detail="{Binding Quantity}"/>
+                        <ViewCell>
+                            <Grid Padding="10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Text="Order ID:"
+                                       FontAttributes="Bold"
+                                       Grid.Row="0"
+                                       Grid.Column="0"/>
+                                <Label Text="{Binding OrderId}"
+                                       Grid.Row="0"
+                                       Grid.Column="1"/>
+                                <Label Text="Order Date:"
+                                       FontAttributes="Bold"
+                                       Grid.Row="1"
+                                       Grid.Column="0"/>
+                                <Label Text="{Binding OrderDate, StringFormat='Order Date: {0:MM/dd/yyyy}'}"
+                                       Grid.Row="1"
+                                       Grid.Column="1"/>
+                                <Label Text="Product:"
+                                       FontAttributes="Bold"
+                                       Grid.Row="2"
+                                       Grid.Column="0"/>
+                                <Label Text="{Binding ProductName}"
+                                       Grid.Row="2"
+                                       Grid.Column="1"/>
+                                <Label Text="Quantity:"
+                                       FontAttributes="Bold"
+                                       Grid.Row="3"
+                                       Grid.Column="0"/>
+                                <Label Text="{Binding Quantity}"
+                                       Grid.Row="3"
+                                       Grid.Column="1"/>
+                                <Label Text="Price:"
+                                       FontAttributes="Bold"
+                                       Grid.Row="4"
+                                       Grid.Column="0"/>
+                                <Label Text="{Binding Price, StringFormat='Price: {0:C}'}"
+                                       Grid.Row="4"
+                                       Grid.Column="1"/>
+                                <Label Text="Total Amount:"
+                                       FontAttributes="Bold"
+                                       Grid.Row="5"
+                                       Grid.Column="0"/>
+                                <Label Text="{Binding TotalAmount, StringFormat='Total Amount: {0:C}'}"
+                                       Grid.Row="5"
+                                       Grid.Column="1"/>
+                            </Grid>
+                        </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

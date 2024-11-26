@@ -97,7 +97,7 @@ namespace MauiApp1.Services
             Product p ON oi.ProductId = p.Id
         JOIN 
             Invoice i ON o.Id = i.OrderId;
-    ");
+        ");
         }
         public async Task DropAllTablesAsync()
         {
