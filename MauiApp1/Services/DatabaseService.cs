@@ -46,18 +46,19 @@ namespace MauiApp1.Services
         public async Task<List<CustomerOrder>> GetCustomerOrdersAsync()
         {
             return await _database.QueryAsync<CustomerOrder>(@"
-                SELECT 
-                    c.Name AS CustomerName,
-                    o.Id AS OrderId,
-                    o.OrderDate,
-                    i.TotalAmount
-                FROM 
-                    Customer c
-                JOIN 
-                    [Order] o ON c.Id = o.CustomerId
-                JOIN 
-                    Invoice i ON o.Id = i.OrderId;
-            ");
+        SELECT 
+            c.Name AS CustomerName,
+            c.Email AS CustomerEmail,
+            o.Id AS OrderId,
+            o.OrderDate,
+            i.TotalAmount
+        FROM 
+            Customer c
+        JOIN 
+            [Order] o ON c.Id = o.CustomerId
+        JOIN 
+            Invoice i ON o.Id = i.OrderId;
+    ");
         }
         public async Task<List<ProductReview>> GetProductReviewsAsync()
         {

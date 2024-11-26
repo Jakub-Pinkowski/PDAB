@@ -12,11 +12,11 @@
                 Aspect="AspectFit"
                 SemanticProperties.Description="dot net bot in a hovercraft number nine"/>
             <Label
-                Text="My app is here!"
+                Text="Home"
                 Style="{StaticResource Headline}"
                 SemanticProperties.HeadingLevel="Level1"/>
             <Button
-                Text="Reset Database"
+                Text="Reset Database - USE WITH CAUTION!"
                 Clicked="OnResetDatabaseClicked"/>
             <Label
                 Text="Customer Orders"
@@ -32,6 +32,8 @@
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"/>
@@ -42,25 +44,40 @@
                                        Grid.Row="0"
                                        Grid.Column="0"
                                        Padding="0,0,10,0"/>
-
                                 <Label Text="{Binding CustomerName}"
                                        Grid.Row="0"
                                        Grid.Column="1"/>
-                                <Label Text="Order Date:"
+                                <Label Text="Customer Email:"
                                        FontAttributes="Bold"
                                        Grid.Row="1"
+                                       Grid.Column="0"
+                                       Padding="0,0,10,0"/>
+                                <Label Text="{Binding CustomerEmail}"
+                                       Grid.Row="1"
+                                       Grid.Column="1"/>
+                                <Label Text="Order Id:"
+                                       FontAttributes="Bold"
+                                       Grid.Row="2"
+                                       Grid.Column="0"
+                                       Padding="0,0,10,0"/>
+                                <Label Text="{Binding OrderId}"
+                                       Grid.Row="2"
+                                       Grid.Column="1"/>
+                                <Label Text="Order Date:"
+                                       FontAttributes="Bold"
+                                       Grid.Row="3"
                                        Grid.Column="0"
                                        Padding="0,0,10,0"/>
                                 <Label Text="{Binding OrderDate, StringFormat='Order Date: {0:MM/dd/yyyy}'}"
-                                       Grid.Row="1"
+                                       Grid.Row="3"
                                        Grid.Column="1"/>
                                 <Label Text="Total Amount:"
                                        FontAttributes="Bold"
-                                       Grid.Row="2"
+                                       Grid.Row="4"
                                        Grid.Column="0"
                                        Padding="0,0,10,0"/>
                                 <Label Text="{Binding TotalAmount, StringFormat='Total Amount: {0:C}'}"
-                                       Grid.Row="2"
+                                       Grid.Row="4"
                                        Grid.Column="1"/>
                             </Grid>
                         </ViewCell>
