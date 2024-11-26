@@ -15,12 +15,16 @@
                 Text="Home"
                 Style="{StaticResource Headline}"
                 SemanticProperties.HeadingLevel="Level1"/>
+            <Label
+                Text="All the tables can be accessed via a hamburger menu on the top left corner."
+                Style="{StaticResource Headline}"
+                SemanticProperties.HeadingLevel="Level2"/>
             <Button
                 Text="Reset Database - USE WITH CAUTION!"
                 Clicked="OnResetDatabaseClicked"/>
             <!-- Customer Orders View -->
             <Label
-                Text="Customer Orders"
+                Text="Customer Orders - business logic view #1"
                 Style="{StaticResource Headline}"
                 SemanticProperties.HeadingLevel="Level2"/>
             <Label
@@ -96,7 +100,7 @@
 
             <!-- Product Reviews View -->
             <Label
-                Text="Product Reviews"
+                Text="Product Reviews - business logic view #2"
                 Style="{StaticResource Headline}"
                 SemanticProperties.HeadingLevel="Level2"/>
             <Label
@@ -171,7 +175,7 @@
             </ListView>
             <!-- Order Details View -->
             <Label
-                Text="Order Details"
+                Text="Order Details - business logic view #3"
                 Style="{StaticResource Headline}"
                 SemanticProperties.HeadingLevel="Level2"/>
             <Label
