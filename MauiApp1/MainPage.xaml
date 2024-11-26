@@ -23,7 +23,7 @@
                 Style="{StaticResource Headline}"
                 SemanticProperties.HeadingLevel="Level2"/>
             <ListView x:Name="CustomerOrdersListView"
-                    HasUnevenRows="True">
+                      HasUnevenRows="True">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -35,26 +35,29 @@
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
                                 <Label Text="Customer:"
                                        FontAttributes="Bold"
                                        Grid.Row="0"
-                                       Grid.Column="0"/>
+                                       Grid.Column="0"
+                                       Padding="0,0,0,0"/>
                                 <Label Text="{Binding CustomerName}"
                                        Grid.Row="0"
                                        Grid.Column="1"/>
                                 <Label Text="Order Date:"
                                        FontAttributes="Bold"
                                        Grid.Row="1"
-                                       Grid.Column="0"/>
+                                       Grid.Column="0"
+                                       Padding="0,0,0,0"/>
                                 <Label Text="{Binding OrderDate, StringFormat='Order Date: {0:MM/dd/yyyy}'}"
                                        Grid.Row="1"
                                        Grid.Column="1"/>
                                 <Label Text="Total Amount:"
                                        FontAttributes="Bold"
                                        Grid.Row="2"
-                                       Grid.Column="0"/>
+                                       Grid.Column="0"
+                                       Padding="0,0,0,0"/>
                                 <Label Text="{Binding TotalAmount, StringFormat='Total Amount: {0:C}'}"
                                        Grid.Row="2"
                                        Grid.Column="1"/>
@@ -68,7 +71,7 @@
                 Style="{StaticResource Headline}"
                 SemanticProperties.HeadingLevel="Level2"/>
             <ListView x:Name="ProductReviewsListView"
-                    HasUnevenRows="True">
+                      HasUnevenRows="True">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -87,35 +90,40 @@
                                 <Label Text="Product:"
                                        FontAttributes="Bold"
                                        Grid.Row="0"
-                                       Grid.Column="0"/>
+                                       Grid.Column="0"
+                                       Padding="0,0,10,0"/>
                                 <Label Text="{Binding ProductName}"
                                        Grid.Row="0"
                                        Grid.Column="1"/>
                                 <Label Text="Reviewed by:"
                                        FontAttributes="Bold"
                                        Grid.Row="1"
-                                       Grid.Column="0"/>
+                                       Grid.Column="0"
+                                       Padding="0,0,10,0"/>
                                 <Label Text="{Binding CustomerName}"
                                        Grid.Row="1"
                                        Grid.Column="1"/>
                                 <Label Text="Rating:"
                                        FontAttributes="Bold"
                                        Grid.Row="2"
-                                       Grid.Column="0"/>
+                                       Grid.Column="0"
+                                       Padding="0,0,10,0"/>
                                 <Label Text="{Binding Rating}"
                                        Grid.Row="2"
                                        Grid.Column="1"/>
                                 <Label Text="Comment:"
                                        FontAttributes="Bold"
                                        Grid.Row="3"
-                                       Grid.Column="0"/>
+                                       Grid.Column="0"
+                                       Padding="0,0,10,0"/>
                                 <Label Text="{Binding Comment}"
                                        Grid.Row="3"
                                        Grid.Column="1"/>
                                 <Label Text="Category:"
                                        FontAttributes="Bold"
                                        Grid.Row="4"
-                                       Grid.Column="0"/>
+                                       Grid.Column="0"
+                                       Padding="0,0,10,0"/>
                                 <Label Text="{Binding CategoryName}"
                                        Grid.Row="4"
                                        Grid.Column="1"/>
@@ -129,7 +137,7 @@
                 Style="{StaticResource Headline}"
                 SemanticProperties.HeadingLevel="Level2"/>
             <ListView x:Name="OrderDetailsListView"
-                    HasUnevenRows="True">
+                      HasUnevenRows="True">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -149,42 +157,48 @@
                                 <Label Text="Order ID:"
                                        FontAttributes="Bold"
                                        Grid.Row="0"
-                                       Grid.Column="0"/>
+                                       Grid.Column="0"
+                                       Padding="0,0,10,0"/>
                                 <Label Text="{Binding OrderId}"
                                        Grid.Row="0"
                                        Grid.Column="1"/>
                                 <Label Text="Order Date:"
                                        FontAttributes="Bold"
                                        Grid.Row="1"
-                                       Grid.Column="0"/>
+                                       Grid.Column="0"
+                                       Padding="0,0,10,0"/>
                                 <Label Text="{Binding OrderDate, StringFormat='Order Date: {0:MM/dd/yyyy}'}"
                                        Grid.Row="1"
                                        Grid.Column="1"/>
                                 <Label Text="Product:"
                                        FontAttributes="Bold"
                                        Grid.Row="2"
-                                       Grid.Column="0"/>
+                                       Grid.Column="0"
+                                       Padding="0,0,10,0"/>
                                 <Label Text="{Binding ProductName}"
                                        Grid.Row="2"
                                        Grid.Column="1"/>
                                 <Label Text="Quantity:"
                                        FontAttributes="Bold"
                                        Grid.Row="3"
-                                       Grid.Column="0"/>
+                                       Grid.Column="0"
+                                       Padding="0,0,10,0"/>
                                 <Label Text="{Binding Quantity}"
                                        Grid.Row="3"
                                        Grid.Column="1"/>
                                 <Label Text="Price:"
                                        FontAttributes="Bold"
                                        Grid.Row="4"
-                                       Grid.Column="0"/>
+                                       Grid.Column="0"
+                                       Padding="0,0,10,0"/>
                                 <Label Text="{Binding Price, StringFormat='Price: {0:C}'}"
                                        Grid.Row="4"
                                        Grid.Column="1"/>
                                 <Label Text="Total Amount:"
                                        FontAttributes="Bold"
                                        Grid.Row="5"
-                                       Grid.Column="0"/>
+                                       Grid.Column="0"
+                                       Padding="0,0,10,0"/>
                                 <Label Text="{Binding TotalAmount, StringFormat='Total Amount: {0:C}'}"
                                        Grid.Row="5"
                                        Grid.Column="1"/>
