@@ -41,7 +41,8 @@
                                        FontAttributes="Bold"
                                        Grid.Row="0"
                                        Grid.Column="0"
-                                       Padding="0,0,0,0"/>
+                                       Padding="0,0,10,0"/>
+
                                 <Label Text="{Binding CustomerName}"
                                        Grid.Row="0"
                                        Grid.Column="1"/>
@@ -49,7 +50,7 @@
                                        FontAttributes="Bold"
                                        Grid.Row="1"
                                        Grid.Column="0"
-                                       Padding="0,0,0,0"/>
+                                       Padding="0,0,10,0"/>
                                 <Label Text="{Binding OrderDate, StringFormat='Order Date: {0:MM/dd/yyyy}'}"
                                        Grid.Row="1"
                                        Grid.Column="1"/>
@@ -57,7 +58,7 @@
                                        FontAttributes="Bold"
                                        Grid.Row="2"
                                        Grid.Column="0"
-                                       Padding="0,0,0,0"/>
+                                       Padding="0,0,10,0"/>
                                 <Label Text="{Binding TotalAmount, StringFormat='Total Amount: {0:C}'}"
                                        Grid.Row="2"
                                        Grid.Column="1"/>
