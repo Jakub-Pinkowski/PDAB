@@ -18,10 +18,19 @@
             <Button
                 Text="Reset Database - USE WITH CAUTION!"
                 Clicked="OnResetDatabaseClicked"/>
+            <!-- Customer Orders View -->
             <Label
                 Text="Customer Orders"
                 Style="{StaticResource Headline}"
                 SemanticProperties.HeadingLevel="Level2"/>
+            <Label
+                Text="Description: This view displays the orders placed by each customer. It includes the customer's name, email, order ID, order date, and the total amount of the order."
+                Style="{StaticResource Subheadline}"
+                SemanticProperties.HeadingLevel="Level3"/>
+            <Label
+                Text="Purpose: To provide a comprehensive overview of customer orders, including key details about the customer and the order."
+                Style="{StaticResource Subheadline}"
+                SemanticProperties.HeadingLevel="Level3"/>
             <ListView x:Name="CustomerOrdersListView"
                       HasUnevenRows="True">
                 <ListView.ItemTemplate>
@@ -84,10 +93,20 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+
+            <!-- Product Reviews View -->
             <Label
                 Text="Product Reviews"
                 Style="{StaticResource Headline}"
                 SemanticProperties.HeadingLevel="Level2"/>
+            <Label
+                Text="Description: This view shows the reviews for each product. It includes the product name, the name of the customer who reviewed it, the rating given, the review comment, and the product's category."
+                Style="{StaticResource Subheadline}"
+                SemanticProperties.HeadingLevel="Level3"/>
+            <Label
+                Text="Purpose: To provide insights into customer feedback on products, helping to understand customer satisfaction and product performance."
+                Style="{StaticResource Subheadline}"
+                SemanticProperties.HeadingLevel="Level3"/>
             <ListView x:Name="ProductReviewsListView"
                       HasUnevenRows="True">
                 <ListView.ItemTemplate>
@@ -150,10 +169,19 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+            <!-- Order Details View -->
             <Label
                 Text="Order Details"
                 Style="{StaticResource Headline}"
                 SemanticProperties.HeadingLevel="Level2"/>
+            <Label
+                Text="Description: This view provides detailed information about each order. It includes the order ID, order date, product name, quantity, price, and the total amount for each order."
+                Style="{StaticResource Subheadline}"
+                SemanticProperties.HeadingLevel="Level3"/>
+            <Label
+                Text="Purpose: To offer a detailed breakdown of each order, including the products ordered, their quantities, and pricing information."
+                Style="{StaticResource Subheadline}"
+                SemanticProperties.HeadingLevel="Level3"/>
             <ListView x:Name="OrderDetailsListView"
                       HasUnevenRows="True">
                 <ListView.ItemTemplate>
