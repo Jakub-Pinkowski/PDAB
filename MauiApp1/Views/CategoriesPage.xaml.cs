@@ -135,6 +135,11 @@ namespace MauiApp1
             IsActiveSwitch.IsToggled = true;
         }
 
+        private void OnRefreshClicked(object sender, EventArgs e)
+        {
+            LoadDiscountsAsync();
+        }
+
         protected new void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
