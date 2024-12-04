@@ -148,6 +148,11 @@ namespace MauiApp1
             ContactEmailEntry.Text = string.Empty;
         }
 
+        private void OnRefreshClicked(object sender, EventArgs e)
+        {
+            LoadSuppliersAsync();
+        }
+
         protected new void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

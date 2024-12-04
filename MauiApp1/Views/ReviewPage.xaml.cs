@@ -142,6 +142,11 @@ namespace MauiApp1
             CommentEntry.Text = string.Empty;
         }
 
+        private void OnRefreshClicked(object sender, EventArgs e)
+        {
+            LoadReviewsAsync();
+        }
+
         protected new void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

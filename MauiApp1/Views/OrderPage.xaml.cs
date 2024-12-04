@@ -130,6 +130,11 @@ namespace MauiApp1
             OrderDateEntry.Text = string.Empty;
         }
 
+        private void OnRefreshClicked(object sender, EventArgs e)
+        {
+            LoadOrdersAsync();
+        }
+
         protected new void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

@@ -137,7 +137,7 @@ namespace MauiApp1
 
         private void OnRefreshClicked(object sender, EventArgs e)
         {
-            LoadDiscountsAsync();
+            LoadCategoriesAsync();
         }
 
         protected new void OnPropertyChanged([CallerMemberName] string? propertyName = null)

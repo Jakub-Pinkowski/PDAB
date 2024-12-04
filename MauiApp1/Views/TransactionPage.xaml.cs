@@ -136,6 +136,11 @@ namespace MauiApp1
             AmountEntry.Text = string.Empty;
         }
 
+        private void OnRefreshClicked(object sender, EventArgs e)
+        {
+            LoadTransactionsAsync();
+        }
+
         protected new void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
