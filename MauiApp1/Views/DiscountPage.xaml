@@ -29,6 +29,11 @@
                         BackgroundColor="#c1121f"
                         TextColor="#fefae0"
                         Margin="10,0,0,0"/>
+                <Button Text="Refresh"
+                        Clicked="OnRefreshClicked"
+                        BackgroundColor="#007acc"
+                        TextColor="#ffffff"
+                        Margin="10,0,0,0"/>
             </HorizontalStackLayout>
             <!-- Headers for the table -->
             <Grid ColumnDefinitions="2*,*,*,0.5*,0.5*"
