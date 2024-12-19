@@ -210,15 +210,15 @@ namespace MauiApp1.Services
             // Populate Invoice
             var invoices = new List<Invoice>
     {
-        new Invoice { OrderId = 1, TotalAmount = 59.99m, InvoiceDate = DateTime.Now },
-        new Invoice { OrderId = 2, TotalAmount = 89.99m, InvoiceDate = DateTime.Now },
-        new Invoice { OrderId = 3, TotalAmount = 19.98m, InvoiceDate = DateTime.Now },
-        new Invoice { OrderId = 4, TotalAmount = 199.99m, InvoiceDate = DateTime.Now },
-        new Invoice { OrderId = 5, TotalAmount = 49.99m, InvoiceDate = DateTime.Now },
-        new Invoice { OrderId = 6, TotalAmount = 29.99m, InvoiceDate = DateTime.Now },
-        new Invoice { OrderId = 7, TotalAmount = 99.99m, InvoiceDate = DateTime.Now },
-        new Invoice { OrderId = 8, TotalAmount = 79.99m, InvoiceDate = DateTime.Now },
-        new Invoice { OrderId = 9, TotalAmount = 39.99m, InvoiceDate = DateTime.Now }
+        new Invoice { OrderId = 1, TotalAmount = 60m, InvoiceDate = DateTime.Now },
+        new Invoice { OrderId = 2, TotalAmount = 90m, InvoiceDate = DateTime.Now },
+        new Invoice { OrderId = 3, TotalAmount = 20m, InvoiceDate = DateTime.Now },
+        new Invoice { OrderId = 4, TotalAmount = 200m, InvoiceDate = DateTime.Now },
+        new Invoice { OrderId = 5, TotalAmount = 50m, InvoiceDate = DateTime.Now },
+        new Invoice { OrderId = 6, TotalAmount = 30m, InvoiceDate = DateTime.Now },
+        new Invoice { OrderId = 7, TotalAmount = 100m, InvoiceDate = DateTime.Now },
+        new Invoice { OrderId = 8, TotalAmount = 80m, InvoiceDate = DateTime.Now },
+        new Invoice { OrderId = 9, TotalAmount = 40m, InvoiceDate = DateTime.Now }
     };
             foreach (var invoice in invoices)
             {
@@ -253,22 +253,22 @@ namespace MauiApp1.Services
             // Populate OrderItem
             var orderItems = new List<OrderItem>
     {
-        new OrderItem { OrderId = 1, ProductId = 1, Quantity = 1, Price = 59.99m },
-        new OrderItem { OrderId = 2, ProductId = 2, Quantity = 1, Price = 89.99m },
-        new OrderItem { OrderId = 3, ProductId = 3, Quantity = 2, Price = 9.99m },
-        new OrderItem { OrderId = 4, ProductId = 4, Quantity = 1, Price = 199.99m },
-        new OrderItem { OrderId = 5, ProductId = 5, Quantity = 1, Price = 49.99m },
-        new OrderItem { OrderId = 6, ProductId = 6, Quantity = 1, Price = 29.99m },
-        new OrderItem { OrderId = 7, ProductId = 7, Quantity = 1, Price = 99.99m },
-        new OrderItem { OrderId = 8, ProductId = 1, Quantity = 1, Price = 59.99m },
-        new OrderItem { OrderId = 9, ProductId = 2, Quantity = 1, Price = 89.99m },
-        new OrderItem { OrderId = 10, ProductId = 3, Quantity = 2, Price = 9.99m },
-        new OrderItem { OrderId = 11, ProductId = 4, Quantity = 1, Price = 199.99m },
-        new OrderItem { OrderId = 12, ProductId = 5, Quantity = 1, Price = 49.99m },
-        new OrderItem { OrderId = 13, ProductId = 6, Quantity = 1, Price = 29.99m },
-        new OrderItem { OrderId = 14, ProductId = 7, Quantity = 1, Price = 99.99m },
-        new OrderItem { OrderId = 15, ProductId = 1, Quantity = 1, Price = 59.99m },
-        new OrderItem { OrderId = 16, ProductId = 2, Quantity = 1, Price = 89.99m }
+        new OrderItem { OrderId = 1, ProductId = 1, Quantity = 1, Price = 60m },
+        new OrderItem { OrderId = 2, ProductId = 2, Quantity = 1, Price = 90m },
+        new OrderItem { OrderId = 3, ProductId = 3, Quantity = 2, Price = 10m },
+        new OrderItem { OrderId = 4, ProductId = 4, Quantity = 1, Price = 200m },
+        new OrderItem { OrderId = 5, ProductId = 5, Quantity = 1, Price = 50m },
+        new OrderItem { OrderId = 6, ProductId = 6, Quantity = 1, Price = 30m },
+        new OrderItem { OrderId = 7, ProductId = 7, Quantity = 1, Price = 100m },
+        new OrderItem { OrderId = 8, ProductId = 1, Quantity = 1, Price = 60m },
+        new OrderItem { OrderId = 9, ProductId = 2, Quantity = 1, Price = 90m },
+        new OrderItem { OrderId = 10, ProductId = 3, Quantity = 2, Price = 10m },
+        new OrderItem { OrderId = 11, ProductId = 4, Quantity = 1, Price = 200m },
+        new OrderItem { OrderId = 12, ProductId = 5, Quantity = 1, Price = 50m },
+        new OrderItem { OrderId = 13, ProductId = 6, Quantity = 1, Price = 30m },
+        new OrderItem { OrderId = 14, ProductId = 7, Quantity = 1, Price = 100m },
+        new OrderItem { OrderId = 15, ProductId = 1, Quantity = 1, Price = 60m },
+        new OrderItem { OrderId = 16, ProductId = 2, Quantity = 1, Price = 90m }
     };
             foreach (var orderItem in orderItems)
             {
@@ -296,13 +296,13 @@ namespace MauiApp1.Services
             // Populate Product
             var products = new List<Product>
     {
-        new Product { Name = "Running Shoes", Price = 59.99m, CategoryId = 1, SupplierId = 1 },
-        new Product { Name = "Hiking Backpack", Price = 89.99m, CategoryId = 2, SupplierId = 2 },
-        new Product { Name = "Water Bottle", Price = 9.99m, CategoryId = 3, SupplierId = 3 },
-        new Product { Name = "Tent", Price = 199.99m, CategoryId = 4, SupplierId = 4 },
-        new Product { Name = "Sleeping Bag", Price = 49.99m, CategoryId = 5, SupplierId = 5 },
-        new Product { Name = "Jacket", Price = 129.99m, CategoryId = 6, SupplierId = 6 },
-        new Product { Name = "GPS Device", Price = 299.99m, CategoryId = 7, SupplierId = 7 }
+        new Product { Name = "Running Shoes", Price = 69m, CategoryId = 1, SupplierId = 1 },
+        new Product { Name = "Hiking Backpack", Price = 90m, CategoryId = 2, SupplierId = 2 },
+        new Product { Name = "Water Bottle", Price = 10m, CategoryId = 3, SupplierId = 3 },
+        new Product { Name = "Tent", Price = 200m, CategoryId = 4, SupplierId = 4 },
+        new Product { Name = "Sleeping Bag", Price = 50m, CategoryId = 5, SupplierId = 5 },
+        new Product { Name = "Jacket", Price = 130m, CategoryId = 6, SupplierId = 6 },
+        new Product { Name = "GPS Device", Price = 300m, CategoryId = 7, SupplierId = 7 }
     };
             foreach (var product in products)
             {
@@ -378,15 +378,15 @@ namespace MauiApp1.Services
             // Populate Transaction
             var transactions = new List<Transaction>
     {
-        new Transaction { OrderId = 1, Amount = 59.99m, TransactionDate = DateTime.Now },
-        new Transaction { OrderId = 2, Amount = 89.99m, TransactionDate = DateTime.Now },
-        new Transaction { OrderId = 3, Amount = 19.98m, TransactionDate = DateTime.Now },
-        new Transaction { OrderId = 4, Amount = 199.99m, TransactionDate = DateTime.Now },
-        new Transaction { OrderId = 5, Amount = 49.99m, TransactionDate = DateTime.Now },
-        new Transaction { OrderId = 6, Amount = 29.99m, TransactionDate = DateTime.Now },
-        new Transaction { OrderId = 7, Amount = 99.99m, TransactionDate = DateTime.Now },
-        new Transaction { OrderId = 8, Amount = 79.99m, TransactionDate = DateTime.Now },
-        new Transaction { OrderId = 9, Amount = 39.99m, TransactionDate = DateTime.Now }
+        new Transaction { OrderId = 1, Amount = 60m, TransactionDate = DateTime.Now },
+        new Transaction { OrderId = 2, Amount = 90m, TransactionDate = DateTime.Now },
+        new Transaction { OrderId = 3, Amount = 20m, TransactionDate = DateTime.Now },
+        new Transaction { OrderId = 4, Amount = 200m, TransactionDate = DateTime.Now },
+        new Transaction { OrderId = 5, Amount = 50m, TransactionDate = DateTime.Now },
+        new Transaction { OrderId = 6, Amount = 30m, TransactionDate = DateTime.Now },
+        new Transaction { OrderId = 7, Amount = 100m, TransactionDate = DateTime.Now },
+        new Transaction { OrderId = 8, Amount = 780m, TransactionDate = DateTime.Now },
+        new Transaction { OrderId = 9, Amount = 40m, TransactionDate = DateTime.Now }
     };
             foreach (var transaction in transactions)
             {
