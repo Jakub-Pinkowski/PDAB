@@ -42,11 +42,11 @@
                 Style="{StaticResource Headline}"
                 SemanticProperties.HeadingLevel="Level2"/>
             <Label
-                Text="Description: This view displays the orders placed by each customer. It includes the customer's name, email, order ID, order date, and the total amount of the order."
+                Text="Description: This view displays the total amounts of orders placed by each customer"
                 Style="{StaticResource Subheadline}"
                 SemanticProperties.HeadingLevel="Level3"/>
             <Label
-                Text="Purpose: To provide a comprehensive overview of customer orders, including key details about the customer and the order."
+                Text="Purpose: To provide a comprehensive overview of the total amounts of customer orders"
                 Style="{StaticResource Subheadline}"
                 SemanticProperties.HeadingLevel="Level3"/>
             <ListView x:Name="CustomerOrdersListView"

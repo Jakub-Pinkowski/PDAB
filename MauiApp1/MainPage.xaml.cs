@@ -46,9 +46,10 @@ namespace MauiApp1
             }
         }
 
-        private void OnRefreshDataClicked(object sender, EventArgs e)
+        private async void OnRefreshDataClicked(object sender, EventArgs e)
         {
             LoadData();
+            await DisplayAlert("Data Refresh", "The database has been refreshed successfully.", "OK");
         }
 
         private async void LoadData()
