@@ -62,12 +62,6 @@ namespace MauiApp1
         private async Task LoadCustomerTotalAmount()
         {
             var customerOrders = await _databaseService.GetCustomerTotalAmountsAsync();
-
-            // Debug: Log the number of orders retrieved
-
-            System.Diagnostics.Debug.WriteLine($"Total Orders Retrieved: {customerOrders.Count}");
-            System.Diagnostics.Debug.WriteLine($"customerOrders: {customerOrders}");
-
             var customerSpending = customerOrders
                 .GroupBy(co => new { co.CustomerName, co.CustomerEmail })
                 .Select(g => new
