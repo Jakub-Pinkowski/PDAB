@@ -27,81 +27,12 @@
                 Text="Backup Database"
                 Clicked="OnBackupDatabaseClicked"/>
             <!-- Customer Orders View -->
-            <Label
-                Text="Customer Orders - business logic view #1"
-                Style="{StaticResource Headline}"
-                SemanticProperties.HeadingLevel="Level2"/>
-            <Label
-                Text="Description: This view displays the orders placed by each customer. It includes the customer's name, email, order ID, order date, and the total amount of the order."
-                Style="{StaticResource Subheadline}"
-                SemanticProperties.HeadingLevel="Level3"/>
-            <Label
-                Text="Purpose: To provide a comprehensive overview of customer orders, including key details about the customer and the order."
-                Style="{StaticResource Subheadline}"
-                SemanticProperties.HeadingLevel="Level3"/>
-            <ListView x:Name="CustomerOrdersListView"
-                      HasUnevenRows="True">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <Grid Padding="10">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
-                                <Label Text="Customer:"
-                                       FontAttributes="Bold"
-                                       Grid.Row="0"
-                                       Grid.Column="0"
-                                       Padding="0,0,10,0"/>
-                                <Label Text="{Binding CustomerName}"
-                                       Grid.Row="0"
-                                       Grid.Column="1"/>
-                                <Label Text="Customer Email:"
-                                       FontAttributes="Bold"
-                                       Grid.Row="1"
-                                       Grid.Column="0"
-                                       Padding="0,0,10,0"/>
-                                <Label Text="{Binding CustomerEmail}"
-                                       Grid.Row="1"
-                                       Grid.Column="1"/>
-                                <Label Text="Order Id:"
-                                       FontAttributes="Bold"
-                                       Grid.Row="2"
-                                       Grid.Column="0"
-                                       Padding="0,0,10,0"/>
-                                <Label Text="{Binding OrderId}"
-                                       Grid.Row="2"
-                                       Grid.Column="1"/>
-                                <Label Text="Order Date:"
-                                       FontAttributes="Bold"
-                                       Grid.Row="3"
-                                       Grid.Column="0"
-                                       Padding="0,0,10,0"/>
-                                <Label Text="{Binding OrderDate, StringFormat='Order Date: {0:MM/dd/yyyy}'}"
-                                       Grid.Row="3"
-                                       Grid.Column="1"/>
-                                <Label Text="Total Amount:"
-                                       FontAttributes="Bold"
-                                       Grid.Row="4"
-                                       Grid.Column="0"
-                                       Padding="0,0,10,0"/>
-                                <Label Text="{Binding TotalAmount, StringFormat='Total Amount: {0:C}'}"
-                                       Grid.Row="4"
-                                       Grid.Column="1"/>
-                            </Grid>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-
+            <!-- Chart View -->
+            <ScrollView>
+                <StackLayout x:Name="CustomerSpendingChart"
+                        Orientation="Vertical"
+                        Padding="10"/>
+            </ScrollView>
             <!-- Product Reviews View -->
             <Label
                 Text="Product Reviews - business logic view #2"

@@ -57,7 +57,45 @@ namespace MauiApp1
         private async Task LoadCustomerOrders()
         {
             var customerOrders = await _databaseService.GetCustomerOrdersAsync();
-            CustomerOrdersListView.ItemsSource = customerOrders;
+
+            var customerSpending = customerOrders
+                .GroupBy(co => new { co.CustomerName, co.CustomerEmail })
+                .Select(g => new
+                {
+                    CustomerName = g.Key.CustomerName,
+                    TotalAmount = g.Sum(co => co.TotalAmount)
+                })
+                .OrderByDescending(cs => cs.TotalAmount)
+                .ToList();
+
+            var maxAmount = customerSpending.Max(cs => cs.TotalAmount);
+
+            CustomerSpendingChart.Children.Clear();
+
+            foreach (var cs in customerSpending)
+            {
+                var bar = new BoxView
+                {
+                    HeightRequest = 20,
+                    WidthRequest = (double)(cs.TotalAmount / maxAmount) * 300,
+                    Color = Colors.Blue,
+                    HorizontalOptions = LayoutOptions.Start
+                };
+
+                var label = new Label
+                {
+                    Text = $"{cs.CustomerName}: {cs.TotalAmount:C}",
+                    VerticalOptions = LayoutOptions.Center
+                };
+
+                var stack = new StackLayout
+                {
+                    Orientation = StackOrientation.Horizontal,
+                    Children = { bar, label }
+                };
+
+                CustomerSpendingChart.Children.Add(stack);
+            }
         }
 
         private async Task LoadProductReviews()
