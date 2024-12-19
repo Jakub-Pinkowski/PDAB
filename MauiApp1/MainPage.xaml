@@ -26,12 +26,17 @@
             <Button
                 Text="Backup Database"
                 Clicked="OnBackupDatabaseClicked"/>
+                
+            <Button
+                Text="Refresh Data"
+                Clicked="OnRefreshDataClicked"/>
+
             <!-- Customer Orders View -->
             <!-- Chart View -->
             <ScrollView>
                 <StackLayout x:Name="CustomerSpendingChart"
-                        Orientation="Vertical"
-                        Padding="10"/>
+                             Orientation="Vertical"
+                             Padding="10"/>
             </ScrollView>
             <!-- Product Reviews View -->
             <Label

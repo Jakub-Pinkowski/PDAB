@@ -47,6 +47,11 @@ namespace MauiApp1
             }
         }
 
+        private void OnRefreshDataClicked(object sender, EventArgs e)
+        {
+            LoadData();
+        }
+
         private async void LoadData()
         {
             await LoadCustomerOrders();
