@@ -49,15 +49,15 @@ namespace MauiApp1.Services
         SELECT 
             c.Name AS CustomerName,
             c.Email AS CustomerEmail,
-            o.Id AS OrderId,
-            o.OrderDate,
-            i.TotalAmount
+            SUM(i.TotalAmount) AS TotalAmount
         FROM 
-            [Order] o
+            Customer c
         LEFT JOIN 
-            Customer c ON c.Id = o.CustomerId
+            [Order] o ON c.Id = o.CustomerId
         LEFT JOIN 
-            Invoice i ON o.Id = i.OrderId;
+            Invoice i ON o.Id = i.OrderId
+        GROUP BY 
+            c.Name, c.Email;
     ");
         }
         public async Task<List<ProductReview>> GetProductReviewsAsync()
@@ -218,7 +218,14 @@ namespace MauiApp1.Services
         new Invoice { OrderId = 6, TotalAmount = 30m, InvoiceDate = DateTime.Now },
         new Invoice { OrderId = 7, TotalAmount = 100m, InvoiceDate = DateTime.Now },
         new Invoice { OrderId = 8, TotalAmount = 80m, InvoiceDate = DateTime.Now },
-        new Invoice { OrderId = 9, TotalAmount = 40m, InvoiceDate = DateTime.Now }
+        new Invoice { OrderId = 9, TotalAmount = 40m, InvoiceDate = DateTime.Now },
+        new Invoice { OrderId = 10, TotalAmount = 60m, InvoiceDate = DateTime.Now },
+        new Invoice { OrderId = 11, TotalAmount = 90m, InvoiceDate = DateTime.Now },
+        new Invoice { OrderId = 12, TotalAmount = 20m, InvoiceDate = DateTime.Now },
+        new Invoice { OrderId = 13, TotalAmount = 200m, InvoiceDate = DateTime.Now },
+        new Invoice { OrderId = 14, TotalAmount = 50m, InvoiceDate = DateTime.Now },
+        new Invoice { OrderId = 15, TotalAmount = 30m, InvoiceDate = DateTime.Now },
+        new Invoice { OrderId = 16, TotalAmount = 100m, InvoiceDate = DateTime.Now }
     };
             foreach (var invoice in invoices)
             {
