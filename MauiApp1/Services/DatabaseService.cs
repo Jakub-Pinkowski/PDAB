@@ -182,7 +182,9 @@ namespace MauiApp1.Services
         new Customer { Name = "Bob Brown", Email = "bob.brown@example.com" },
         new Customer { Name = "Charlie Davis", Email = "charlie.davis@example.com" },
         new Customer { Name = "David Wilson", Email = "david.wilson@example.com" },
-        new Customer { Name = "Eva Green", Email = "eva.green@example.com" }
+        new Customer { Name = "Eva Green", Email = "eva.green@example.com" },
+        new Customer { Name = "Frank White", Email = "frank.white@example.com" },
+        new Customer { Name = "Grace Black", Email = "grace.black@example.com" }
     };
             foreach (var customer in customers)
             {
@@ -214,7 +216,9 @@ namespace MauiApp1.Services
         new Invoice { OrderId = 4, TotalAmount = 199.99m, InvoiceDate = DateTime.Now },
         new Invoice { OrderId = 5, TotalAmount = 49.99m, InvoiceDate = DateTime.Now },
         new Invoice { OrderId = 6, TotalAmount = 29.99m, InvoiceDate = DateTime.Now },
-        new Invoice { OrderId = 7, TotalAmount = 99.99m, InvoiceDate = DateTime.Now }
+        new Invoice { OrderId = 7, TotalAmount = 99.99m, InvoiceDate = DateTime.Now },
+        new Invoice { OrderId = 8, TotalAmount = 79.99m, InvoiceDate = DateTime.Now },
+        new Invoice { OrderId = 9, TotalAmount = 39.99m, InvoiceDate = DateTime.Now }
     };
             foreach (var invoice in invoices)
             {
@@ -230,7 +234,16 @@ namespace MauiApp1.Services
         new Order { CustomerId = 4, OrderDate = DateTime.Now },
         new Order { CustomerId = 5, OrderDate = DateTime.Now },
         new Order { CustomerId = 6, OrderDate = DateTime.Now },
-        new Order { CustomerId = 7, OrderDate = DateTime.Now }
+        new Order { CustomerId = 7, OrderDate = DateTime.Now },
+        new Order { CustomerId = 1, OrderDate = DateTime.Now },
+        new Order { CustomerId = 2, OrderDate = DateTime.Now },
+        new Order { CustomerId = 3, OrderDate = DateTime.Now },
+        new Order { CustomerId = 4, OrderDate = DateTime.Now },
+        new Order { CustomerId = 5, OrderDate = DateTime.Now },
+        new Order { CustomerId = 6, OrderDate = DateTime.Now },
+        new Order { CustomerId = 7, OrderDate = DateTime.Now },
+        new Order { CustomerId = 8, OrderDate = DateTime.Now },
+        new Order { CustomerId = 9, OrderDate = DateTime.Now }
     };
             foreach (var order in orders)
             {
@@ -246,7 +259,16 @@ namespace MauiApp1.Services
         new OrderItem { OrderId = 4, ProductId = 4, Quantity = 1, Price = 199.99m },
         new OrderItem { OrderId = 5, ProductId = 5, Quantity = 1, Price = 49.99m },
         new OrderItem { OrderId = 6, ProductId = 6, Quantity = 1, Price = 29.99m },
-        new OrderItem { OrderId = 7, ProductId = 7, Quantity = 1, Price = 99.99m }
+        new OrderItem { OrderId = 7, ProductId = 7, Quantity = 1, Price = 99.99m },
+        new OrderItem { OrderId = 8, ProductId = 1, Quantity = 1, Price = 59.99m },
+        new OrderItem { OrderId = 9, ProductId = 2, Quantity = 1, Price = 89.99m },
+        new OrderItem { OrderId = 10, ProductId = 3, Quantity = 2, Price = 9.99m },
+        new OrderItem { OrderId = 11, ProductId = 4, Quantity = 1, Price = 199.99m },
+        new OrderItem { OrderId = 12, ProductId = 5, Quantity = 1, Price = 49.99m },
+        new OrderItem { OrderId = 13, ProductId = 6, Quantity = 1, Price = 29.99m },
+        new OrderItem { OrderId = 14, ProductId = 7, Quantity = 1, Price = 99.99m },
+        new OrderItem { OrderId = 15, ProductId = 1, Quantity = 1, Price = 59.99m },
+        new OrderItem { OrderId = 16, ProductId = 2, Quantity = 1, Price = 89.99m }
     };
             foreach (var orderItem in orderItems)
             {
@@ -262,7 +284,9 @@ namespace MauiApp1.Services
         new PaymentMethod { CustomerId = 4, CardNumber = "4567890123456789", ExpirationDate = DateTime.Now.AddYears(4) },
         new PaymentMethod { CustomerId = 5, CardNumber = "5678901234567890", ExpirationDate = DateTime.Now.AddYears(5) },
         new PaymentMethod { CustomerId = 6, CardNumber = "6789012345678901", ExpirationDate = DateTime.Now.AddYears(6) },
-        new PaymentMethod { CustomerId = 7, CardNumber = "7890123456789012", ExpirationDate = DateTime.Now.AddYears(7) }
+        new PaymentMethod { CustomerId = 7, CardNumber = "7890123456789012", ExpirationDate = DateTime.Now.AddYears(7) },
+        new PaymentMethod { CustomerId = 8, CardNumber = "8901234567890123", ExpirationDate = DateTime.Now.AddYears(8) },
+        new PaymentMethod { CustomerId = 9, CardNumber = "9012345678901234", ExpirationDate = DateTime.Now.AddYears(9) }
     };
             foreach (var paymentMethod in paymentMethods)
             {
@@ -326,7 +350,9 @@ namespace MauiApp1.Services
         new ShoppingCartItem { CustomerId = 4, ProductId = 4, Quantity = 1 },
         new ShoppingCartItem { CustomerId = 5, ProductId = 5, Quantity = 1 },
         new ShoppingCartItem { CustomerId = 6, ProductId = 6, Quantity = 1 },
-        new ShoppingCartItem { CustomerId = 7, ProductId = 7, Quantity = 1 }
+        new ShoppingCartItem { CustomerId = 7, ProductId = 7, Quantity = 1 },
+        new ShoppingCartItem { CustomerId = 8, ProductId = 1, Quantity = 1 },
+        new ShoppingCartItem { CustomerId = 9, ProductId = 2, Quantity = 1 }
     };
             foreach (var shoppingCart in shoppingCarts)
             {
@@ -358,7 +384,9 @@ namespace MauiApp1.Services
         new Transaction { OrderId = 4, Amount = 199.99m, TransactionDate = DateTime.Now },
         new Transaction { OrderId = 5, Amount = 49.99m, TransactionDate = DateTime.Now },
         new Transaction { OrderId = 6, Amount = 29.99m, TransactionDate = DateTime.Now },
-        new Transaction { OrderId = 7, Amount = 99.99m, TransactionDate = DateTime.Now }
+        new Transaction { OrderId = 7, Amount = 99.99m, TransactionDate = DateTime.Now },
+        new Transaction { OrderId = 8, Amount = 79.99m, TransactionDate = DateTime.Now },
+        new Transaction { OrderId = 9, Amount = 39.99m, TransactionDate = DateTime.Now }
     };
             foreach (var transaction in transactions)
             {
@@ -374,7 +402,9 @@ namespace MauiApp1.Services
         new WishlistItem { CustomerId = 4, ProductId = 4 },
         new WishlistItem { CustomerId = 5, ProductId = 5 },
         new WishlistItem { CustomerId = 6, ProductId = 6 },
-        new WishlistItem { CustomerId = 7, ProductId = 7 }
+        new WishlistItem { CustomerId = 7, ProductId = 7 },
+        new WishlistItem { CustomerId = 8, ProductId = 1 },
+        new WishlistItem { CustomerId = 9, ProductId = 2 }
     };
             foreach (var wishlist in wishlists)
             {
