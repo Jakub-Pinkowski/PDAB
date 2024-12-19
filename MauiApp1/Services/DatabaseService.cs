@@ -43,9 +43,9 @@ namespace MauiApp1.Services
             return _database.DeleteAsync(item);
         }
 
-        public async Task<List<CustomerOrder>> GetCustomerOrdersAsync()
+        public async Task<List<CustomerTotalAmount>> GetCustomerTotalAmountsAsync()
         {
-            return await _database.QueryAsync<CustomerOrder>(@"
+            return await _database.QueryAsync<CustomerTotalAmount>(@"
         SELECT 
             c.Name AS CustomerName,
             c.Email AS CustomerEmail,
@@ -53,10 +53,10 @@ namespace MauiApp1.Services
             o.OrderDate,
             i.TotalAmount
         FROM 
-            Customer c
-        JOIN 
-            [Order] o ON c.Id = o.CustomerId
-        JOIN 
+            [Order] o
+        LEFT JOIN 
+            Customer c ON c.Id = o.CustomerId
+        LEFT JOIN 
             Invoice i ON o.Id = i.OrderId;
     ");
         }

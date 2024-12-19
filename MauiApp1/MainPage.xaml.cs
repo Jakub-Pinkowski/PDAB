@@ -42,7 +42,6 @@ namespace MauiApp1
             {
                 await _databaseService.ResetDatabaseAsync();
                 await DisplayAlert("Success", "Database has been reset.", "OK");
-                // Reload the data after resetting the database
                 LoadData();
             }
         }
@@ -54,20 +53,26 @@ namespace MauiApp1
 
         private async void LoadData()
         {
-            await LoadCustomerOrders();
+            await LoadCustomerTotalAmount();
             await LoadProductReviews();
             await LoadOrderDetails();
         }
 
-        private async Task LoadCustomerOrders()
+        private async Task LoadCustomerTotalAmount()
         {
-            var customerOrders = await _databaseService.GetCustomerOrdersAsync();
+            var customerOrders = await _databaseService.GetCustomerTotalAmountsAsync();
+
+            // Debug: Log the number of orders retrieved
+
+            System.Diagnostics.Debug.WriteLine($"Total Orders Retrieved: {customerOrders.Count}");
+            System.Diagnostics.Debug.WriteLine($"customerOrders: {customerOrders}");
 
             var customerSpending = customerOrders
                 .GroupBy(co => new { co.CustomerName, co.CustomerEmail })
                 .Select(g => new
                 {
                     CustomerName = g.Key.CustomerName,
+                    CustomerEmail = g.Key.CustomerEmail,
                     TotalAmount = g.Sum(co => co.TotalAmount)
                 })
                 .OrderByDescending(cs => cs.TotalAmount)
@@ -101,6 +106,15 @@ namespace MauiApp1
 
                 CustomerSpendingChart.Children.Add(stack);
             }
+
+            var aggregatedOrders = customerSpending.Select(cs => new CustomerTotalAmount
+            {
+                CustomerName = cs.CustomerName,
+                CustomerEmail = cs.CustomerEmail,
+                TotalAmount = cs.TotalAmount
+            }).ToList();
+
+            CustomerOrdersListView.ItemsSource = aggregatedOrders;
         }
 
         private async Task LoadProductReviews()
