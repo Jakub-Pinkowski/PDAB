@@ -4,6 +4,7 @@ using Microsoft.Maui.Controls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
@@ -15,6 +16,8 @@ namespace MauiApp1
         private Address? _editingAddress;
         private string _buttonText = "Add Address";
         private bool _isEditing = false;
+        private bool _isSortedAscending = true;
+        private List<Address> _masterAddressList = new List<Address>();
 
         public new event PropertyChangedEventHandler? PropertyChanged;
 
@@ -48,8 +51,8 @@ namespace MauiApp1
 
         private async void LoadAddressesAsync()
         {
-            var addresses = await _databaseService.GetItemsAsync<Address>();
-            AddressesCollectionView.ItemsSource = addresses;
+            _masterAddressList = await _databaseService.GetItemsAsync<Address>();
+            AddressesCollectionView.ItemsSource = _masterAddressList;
         }
 
         private async void OnAddAddressClicked(object sender, EventArgs e)
@@ -151,6 +154,150 @@ namespace MauiApp1
         private void OnRefreshClicked(object sender, EventArgs e)
         {
             LoadAddressesAsync();
+        }
+
+        private void SortAddresses(string criterion)
+        {
+            var addresses = AddressesCollectionView.ItemsSource.Cast<Address>().ToList();
+            switch (criterion)
+            {
+                case "CustomerId":
+                    addresses = _isSortedAscending ? addresses.OrderBy(a => a.CustomerId).ToList() : addresses.OrderByDescending(a => a.CustomerId).ToList();
+                    _isSortedAscending = !_isSortedAscending;
+                    break;
+                case "Street":
+                    addresses = _isSortedAscending ? addresses.OrderBy(a => a.Street).ToList() : addresses.OrderByDescending(a => a.Street).ToList();
+                    _isSortedAscending = !_isSortedAscending;
+                    break;
+                case "City":
+                    addresses = _isSortedAscending ? addresses.OrderBy(a => a.City).ToList() : addresses.OrderByDescending(a => a.City).ToList();
+                    _isSortedAscending = !_isSortedAscending;
+                    break;
+                case "State":
+                    addresses = _isSortedAscending ? addresses.OrderBy(a => a.State).ToList() : addresses.OrderByDescending(a => a.State).ToList();
+                    _isSortedAscending = !_isSortedAscending;
+                    break;
+                case "ZipCode":
+                    addresses = _isSortedAscending ? addresses.OrderBy(a => a.ZipCode).ToList() : addresses.OrderByDescending(a => a.ZipCode).ToList();
+                    _isSortedAscending = !_isSortedAscending;
+                    break;
+            }
+            AddressesCollectionView.ItemsSource = addresses;
+        }
+
+        private void OnSortByCustomerIdClicked(object sender, EventArgs e)
+        {
+            SortAddresses("CustomerId");
+        }
+
+        private void OnSortByStreetClicked(object sender, EventArgs e)
+        {
+            SortAddresses("Street");
+        }
+
+        private void OnSortByCityClicked(object sender, EventArgs e)
+        {
+            SortAddresses("City");
+        }
+
+        private void OnSortByStateClicked(object sender, EventArgs e)
+        {
+            SortAddresses("State");
+        }
+
+        private void OnSortByZipCodeClicked(object sender, EventArgs e)
+        {
+            SortAddresses("ZipCode");
+        }
+
+        private void FilterAddresses(string criterion, string minValue, string maxValue)
+        {
+            var addresses = _masterAddressList;
+            switch (criterion)
+            {
+                case "CustomerId":
+                    if (int.TryParse(minValue, out int minCustomerId) && int.TryParse(maxValue, out int maxCustomerId))
+                    {
+                        addresses = addresses.Where(a => a.CustomerId >= minCustomerId && a.CustomerId <= maxCustomerId).ToList();
+                    }
+                    else if (int.TryParse(minValue, out minCustomerId))
+                    {
+                        addresses = addresses.Where(a => a.CustomerId >= minCustomerId).ToList();
+                    }
+                    else if (int.TryParse(maxValue, out maxCustomerId))
+                    {
+                        addresses = addresses.Where(a => a.CustomerId <= maxCustomerId).ToList();
+                    }
+                    break;
+                case "Street":
+                    if (!string.IsNullOrWhiteSpace(minValue))
+                    {
+                        addresses = addresses.Where(a => a.Street.Contains(minValue)).ToList();
+                    }
+                    break;
+                case "City":
+                    if (!string.IsNullOrWhiteSpace(minValue))
+                    {
+                        addresses = addresses.Where(a => a.City.Contains(minValue)).ToList();
+                    }
+                    break;
+                case "State":
+                    if (!string.IsNullOrWhiteSpace(minValue))
+                    {
+                        addresses = addresses.Where(a => a.State.Contains(minValue)).ToList();
+                    }
+                    break;
+                case "ZipCode":
+                    if (!string.IsNullOrWhiteSpace(minValue))
+                    {
+                        addresses = addresses.Where(a => a.ZipCode.Contains(minValue)).ToList();
+                    }
+                    break;
+            }
+            AddressesCollectionView.ItemsSource = addresses;
+        }
+
+        private void OnFilterByCustomerIdClicked(object sender, EventArgs e)
+        {
+            FilterAddresses("CustomerId", MinCustomerIdEntry.Text, MaxCustomerIdEntry.Text);
+        }
+
+        private void OnFilterByStreetClicked(object sender, EventArgs e)
+        {
+            FilterAddresses("Street", MinStreetEntry.Text, MaxStreetEntry.Text);
+        }
+
+        private void OnFilterByCityClicked(object sender, EventArgs e)
+        {
+            FilterAddresses("City", MinCityEntry.Text, MaxCityEntry.Text);
+        }
+
+        private void OnFilterByStateClicked(object sender, EventArgs e)
+        {
+            FilterAddresses("State", MinStateEntry.Text, MaxStateEntry.Text);
+        }
+
+        private void OnFilterByZipCodeClicked(object sender, EventArgs e)
+        {
+            FilterAddresses("ZipCode", MinZipCodeEntry.Text, MaxZipCodeEntry.Text);
+        }
+
+        private void OnRefreshFiltersClicked(object sender, EventArgs e)
+        {
+            // Clear all filter inputs
+            MinCustomerIdEntry.Text = string.Empty;
+            MaxCustomerIdEntry.Text = string.Empty;
+            MinStreetEntry.Text = string.Empty;
+            MaxStreetEntry.Text = string.Empty;
+            MinCityEntry.Text = string.Empty;
+            MaxCityEntry.Text = string.Empty;
+            MinStateEntry.Text = string.Empty;
+            MaxStateEntry.Text = string.Empty;
+            MinZipCodeEntry.Text = string.Empty;
+            MaxZipCodeEntry.Text = string.Empty;
+
+            // Reset the displayed addresses to the full list
+            AddressesCollectionView.ItemsSource = _masterAddressList;
         }
 
         protected new void OnPropertyChanged([CallerMemberName] string? propertyName = null)
