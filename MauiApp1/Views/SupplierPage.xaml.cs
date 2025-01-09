@@ -4,8 +4,8 @@ using Microsoft.Maui.Controls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace MauiApp1
@@ -16,6 +16,8 @@ namespace MauiApp1
         private Supplier? _editingSupplier;
         private string _buttonText = "Add Supplier";
         private bool _isEditing = false;
+        private bool _isSortedAscending = true;
+        private List<Supplier> _masterSupplierList = new List<Supplier>();
 
         public new event PropertyChangedEventHandler? PropertyChanged;
 
@@ -49,33 +51,16 @@ namespace MauiApp1
 
         private async void LoadSuppliersAsync()
         {
-            var suppliers = await _databaseService.GetItemsAsync<Supplier>();
-            SuppliersCollectionView.ItemsSource = suppliers;
-        }
-
-        private bool IsValidEmail(string email)
-        {
-            if (string.IsNullOrWhiteSpace(email))
-                return false;
-
-            try
-            {
-                // Use Regex to check if the email is in a valid format
-                var emailRegex = new Regex(@"^[^@\s]+@[^@\s]+\.[^@\s]+$");
-                return emailRegex.IsMatch(email);
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+            _masterSupplierList = await _databaseService.GetItemsAsync<Supplier>();
+            SuppliersCollectionView.ItemsSource = _masterSupplierList;
         }
 
         private async void OnAddSupplierClicked(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(NameEntry.Text) || NameEntry.Text.Length < 2 ||
-                string.IsNullOrWhiteSpace(ContactEmailEntry.Text) || !IsValidEmail(ContactEmailEntry.Text))
+                string.IsNullOrWhiteSpace(ContactEmailEntry.Text) || ContactEmailEntry.Text.Length < 2)
             {
-                await DisplayAlert("Validation Error", "Name must be at least 2 characters long and Email must be a valid email address.", "OK");
+                await DisplayAlert("Validation Error", "Name and Contact Email must be at least 2 characters long.", "OK");
                 return;
             }
 
@@ -113,7 +98,7 @@ namespace MauiApp1
 
             if (supplier != null)
             {
-                bool confirm = await DisplayAlert("Confirm Delete", $"Are you sure you want to delete the supplier {supplier.Name}?", "Yes", "No");
+                bool confirm = await DisplayAlert("Confirm Delete", $"Are you sure you want to delete {supplier.Name}?", "Yes", "No");
                 if (confirm)
                 {
                     await _databaseService.DeleteItemAsync(supplier);
@@ -151,6 +136,76 @@ namespace MauiApp1
         private void OnRefreshClicked(object sender, EventArgs e)
         {
             LoadSuppliersAsync();
+        }
+
+        private void SortSuppliers(string criterion)
+        {
+            var suppliers = SuppliersCollectionView.ItemsSource.Cast<Supplier>().ToList();
+            switch (criterion)
+            {
+                case "Name":
+                    suppliers = _isSortedAscending ? suppliers.OrderBy(s => s.Name).ToList() : suppliers.OrderByDescending(s => s.Name).ToList();
+                    _isSortedAscending = !_isSortedAscending;
+                    break;
+                case "ContactEmail":
+                    suppliers = _isSortedAscending ? suppliers.OrderBy(s => s.ContactEmail).ToList() : suppliers.OrderByDescending(s => s.ContactEmail).ToList();
+                    _isSortedAscending = !_isSortedAscending;
+                    break;
+            }
+            SuppliersCollectionView.ItemsSource = suppliers;
+        }
+
+        private void OnSortByNameClicked(object sender, EventArgs e)
+        {
+            SortSuppliers("Name");
+        }
+
+        private void OnSortByContactEmailClicked(object sender, EventArgs e)
+        {
+            SortSuppliers("ContactEmail");
+        }
+
+        private void FilterSuppliers(string criterion, string minValue, string maxValue)
+        {
+            var suppliers = _masterSupplierList;
+            switch (criterion)
+            {
+                case "Name":
+                    if (!string.IsNullOrWhiteSpace(minValue))
+                    {
+                        suppliers = suppliers.Where(s => s.Name.Contains(minValue)).ToList();
+                    }
+                    break;
+                case "ContactEmail":
+                    if (!string.IsNullOrWhiteSpace(minValue))
+                    {
+                        suppliers = suppliers.Where(s => s.ContactEmail.Contains(minValue)).ToList();
+                    }
+                    break;
+            }
+            SuppliersCollectionView.ItemsSource = suppliers;
+        }
+
+        private void OnFilterByNameClicked(object sender, EventArgs e)
+        {
+            FilterSuppliers("Name", MinNameEntry.Text, MaxNameEntry.Text);
+        }
+
+        private void OnFilterByContactEmailClicked(object sender, EventArgs e)
+        {
+            FilterSuppliers("ContactEmail", MinContactEmailEntry.Text, MaxContactEmailEntry.Text);
+        }
+
+        private void OnRefreshFiltersClicked(object sender, EventArgs e)
+        {
+            // Clear all filter inputs
+            MinNameEntry.Text = string.Empty;
+            MaxNameEntry.Text = string.Empty;
+            MinContactEmailEntry.Text = string.Empty;
+            MaxContactEmailEntry.Text = string.Empty;
+
+            // Reset the displayed suppliers to the full list
+            SuppliersCollectionView.ItemsSource = _masterSupplierList;
         }
 
         protected new void OnPropertyChanged([CallerMemberName] string? propertyName = null)
