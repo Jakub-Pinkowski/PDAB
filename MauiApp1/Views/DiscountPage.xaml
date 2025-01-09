@@ -35,6 +35,82 @@
                         TextColor="#ffffff"
                         Margin="10,0,0,0"/>
             </HorizontalStackLayout>
+            <HorizontalStackLayout Margin="10,0,0,0">
+                <Button Text="Sort by Code"
+                        Clicked="OnSortByCodeClicked"
+                        BackgroundColor="#ff9800"
+                        TextColor="#ffffff"
+                        Margin="0,0,10,0"/>
+                <Button Text="Sort by Percentage"
+                        Clicked="OnSortByPercentageClicked"
+                        BackgroundColor="#ff9800"
+                        TextColor="#ffffff"
+                        Margin="0,0,10,0"/>
+                <Button Text="Sort by Expiration Date"
+                        Clicked="OnSortByExpirationDateClicked"
+                        BackgroundColor="#ff9800"
+                        TextColor="#ffffff"
+                        Margin="0,0,10,0"/>
+            </HorizontalStackLayout>
+            <Label Text="Filter by Code"
+                    Margin="10,0,0,0"/>
+            <HorizontalStackLayout Margin="10,0,0,0">
+                <Entry x:Name="MinCodeEntry"
+                       Placeholder="Min Code"
+                       WidthRequest="150"/>
+                <Entry x:Name="MaxCodeEntry"
+                       Placeholder="Max Code"
+                       WidthRequest="150"
+                       Margin="10,0,0,0"/>
+                <Button Text="Filter"
+                        Clicked="OnFilterByCodeClicked"
+                        BackgroundColor="#4caf50"
+                        TextColor="#ffffff"
+                        Margin="10,0,0,0"/>
+            </HorizontalStackLayout>
+            <Label Text="Filter by Percentage"
+                    Margin="10,0,0,0"/>
+            <HorizontalStackLayout Margin="10,0,0,0">
+                <Entry x:Name="MinPercentageEntry"
+                       Placeholder="Min Percentage"
+                       Keyboard="Numeric"
+                       WidthRequest="150"/>
+                <Entry x:Name="MaxPercentageEntry"
+                       Placeholder="Max Percentage"
+                       Keyboard="Numeric"
+                       WidthRequest="150"
+                       Margin="10,0,0,0"/>
+                <Button Text="Filter"
+                        Clicked="OnFilterByPercentageClicked"
+                        BackgroundColor="#4caf50"
+                        TextColor="#ffffff"
+                        Margin="10,0,0,0"/>
+            </HorizontalStackLayout>
+            <Label Text="Filter by Expiration Date"
+                    Margin="10,0,0,0"/>
+            <HorizontalStackLayout Margin="10,0,0,0">
+                <Entry x:Name="MinExpirationDateEntry"
+                       Placeholder="Min Expiration Date"
+                       Keyboard="Numeric"
+                       WidthRequest="150"/>
+                <Entry x:Name="MaxExpirationDateEntry"
+                       Placeholder="Max Expiration Date"
+                       Keyboard="Numeric"
+                       WidthRequest="150"
+                       Margin="10,0,0,0"/>
+                <Button Text="Filter"
+                        Clicked="OnFilterByExpirationDateClicked"
+                        BackgroundColor="#4caf50"
+                        TextColor="#ffffff"
+                        Margin="10,0,0,0"/>
+            </HorizontalStackLayout>
+            <HorizontalStackLayout>
+                <Button Text="Refresh Filters"
+                        Clicked="OnRefreshFiltersClicked"
+                        BackgroundColor="#f44336"
+                        TextColor="#ffffff"
+                        Margin="10,0,0,0"/>
+            </HorizontalStackLayout>
             <!-- Headers for the table -->
             <Grid ColumnDefinitions="2*,*,*,0.5*,0.5*"
                   Padding="10,0">
