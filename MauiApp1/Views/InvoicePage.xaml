@@ -53,6 +53,26 @@
                         TextColor="#ffffff"
                         Margin="0,0,10,0"/>
             </HorizontalStackLayout>
+            <Entry x:Name="FilterEntry"
+                   Placeholder="Enter filter value"
+                   Margin="10,0,0,0"/>
+            <HorizontalStackLayout Margin="10,0,0,0">
+                <Button Text="Filter by Order ID"
+                        Clicked="OnFilterByOrderIdClicked"
+                        BackgroundColor="#007acc"
+                        TextColor="#ffffff"
+                        Margin="0,0,10,0"/>
+                <Button Text="Filter by Date"
+                        Clicked="OnFilterByInvoiceDateClicked"
+                        BackgroundColor="#007acc"
+                        TextColor="#ffffff"
+                        Margin="0,0,10,0"/>
+                <Button Text="Filter by Amount"
+                        Clicked="OnFilterByTotalAmountClicked"
+                        BackgroundColor="#007acc"
+                        TextColor="#ffffff"
+                        Margin="0,0,10,0"/>
+            </HorizontalStackLayout>
             <!-- Headers for the table -->
             <Grid ColumnDefinitions="*,*,*,0.5*,0.5*"
                   Padding="10,0">

@@ -17,6 +17,7 @@ namespace MauiApp1
         private string _buttonText = "Add Invoice";
         private bool _isEditing = false;
         private bool _isSortedAscending = true;
+        private List<Invoice> _masterInvoiceList = new List<Invoice>();
 
         public new event PropertyChangedEventHandler? PropertyChanged;
 
@@ -50,8 +51,8 @@ namespace MauiApp1
 
         private async void LoadInvoicesAsync()
         {
-            var invoices = await _databaseService.GetItemsAsync<Invoice>();
-            InvoicesCollectionView.ItemsSource = invoices;
+            _masterInvoiceList = await _databaseService.GetItemsAsync<Invoice>();
+            InvoicesCollectionView.ItemsSource = _masterInvoiceList;
         }
 
         private async void OnAddInvoiceClicked(object sender, EventArgs e)
@@ -182,6 +183,48 @@ namespace MauiApp1
         protected new void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private void FilterInvoices(string criterion, string value)
+        {
+            var invoices = _masterInvoiceList;
+            switch (criterion)
+            {
+                case "OrderId":
+                    if (int.TryParse(value, out int orderId))
+                    {
+                        invoices = invoices.Where(i => i.OrderId == orderId).ToList();
+                    }
+                    break;
+                case "InvoiceDate":
+                    if (DateTime.TryParse(value, out DateTime invoiceDate))
+                    {
+                        invoices = invoices.Where(i => i.InvoiceDate.Date == invoiceDate.Date).ToList();
+                    }
+                    break;
+                case "TotalAmount":
+                    if (decimal.TryParse(value, out decimal totalAmount))
+                    {
+                        invoices = invoices.Where(i => i.TotalAmount == totalAmount).ToList();
+                    }
+                    break;
+            }
+            InvoicesCollectionView.ItemsSource = invoices;
+        }
+
+        private void OnFilterByOrderIdClicked(object sender, EventArgs e)
+        {
+            FilterInvoices("OrderId", FilterEntry.Text);
+        }
+
+        private void OnFilterByInvoiceDateClicked(object sender, EventArgs e)
+        {
+            FilterInvoices("InvoiceDate", FilterEntry.Text);
+        }
+
+        private void OnFilterByTotalAmountClicked(object sender, EventArgs e)
+        {
+            FilterInvoices("TotalAmount", FilterEntry.Text);
         }
     }
 }
