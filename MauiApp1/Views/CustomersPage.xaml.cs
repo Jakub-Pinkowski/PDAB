@@ -4,8 +4,8 @@ using Microsoft.Maui.Controls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace MauiApp1
@@ -16,6 +16,8 @@ namespace MauiApp1
         private Customer? _editingCustomer;
         private string _buttonText = "Add Customer";
         private bool _isEditing = false;
+        private bool _isSortedAscending = true;
+        private List<Customer> _masterCustomerList = new List<Customer>();
 
         public new event PropertyChangedEventHandler? PropertyChanged;
 
@@ -49,33 +51,16 @@ namespace MauiApp1
 
         private async void LoadCustomersAsync()
         {
-            var customers = await _databaseService.GetItemsAsync<Customer>();
-            CustomersCollectionView.ItemsSource = customers;
-        }
-
-        private bool IsValidEmail(string email)
-        {
-            if (string.IsNullOrWhiteSpace(email))
-                return false;
-
-            try
-            {
-                // Use Regex to check if the email is in a valid format
-                var emailRegex = new Regex(@"^[^@\s]+@[^@\s]+\.[^@\s]+$");
-                return emailRegex.IsMatch(email);
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+            _masterCustomerList = await _databaseService.GetItemsAsync<Customer>();
+            CustomersCollectionView.ItemsSource = _masterCustomerList;
         }
 
         private async void OnAddCustomerClicked(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(NameEntry.Text) || NameEntry.Text.Length < 2 ||
-                string.IsNullOrWhiteSpace(EmailEntry.Text) || EmailEntry.Text.Length < 2 || !IsValidEmail(EmailEntry.Text))
+            if (string.IsNullOrWhiteSpace(NameEntry.Text) ||
+                string.IsNullOrWhiteSpace(EmailEntry.Text))
             {
-                await DisplayAlert("Validation Error", "Name must be at least 2 characters long and Email must be a valid email address.", "OK");
+                await DisplayAlert("Validation Error", "Please ensure all fields are filled correctly.", "OK");
                 return;
             }
 
@@ -113,7 +98,7 @@ namespace MauiApp1
 
             if (customer != null)
             {
-                bool confirm = await DisplayAlert("Confirm Delete", $"Are you sure you want to delete {customer.Name}?", "Yes", "No");
+                bool confirm = await DisplayAlert("Confirm Delete", $"Are you sure you want to delete the customer with Name {customer.Name}?", "Yes", "No");
                 if (confirm)
                 {
                     await _databaseService.DeleteItemAsync(customer);
@@ -152,9 +137,75 @@ namespace MauiApp1
         {
             LoadCustomersAsync();
         }
-        protected new void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+
+        private void SortCustomers(string criterion)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            var customers = CustomersCollectionView.ItemsSource.Cast<Customer>().ToList();
+            switch (criterion)
+            {
+                case "Name":
+                    customers = _isSortedAscending ? customers.OrderBy(c => c.Name).ToList() : customers.OrderByDescending(c => c.Name).ToList();
+                    _isSortedAscending = !_isSortedAscending;
+                    break;
+                case "Email":
+                    customers = _isSortedAscending ? customers.OrderBy(c => c.Email).ToList() : customers.OrderByDescending(c => c.Email).ToList();
+                    _isSortedAscending = !_isSortedAscending;
+                    break;
+            }
+            CustomersCollectionView.ItemsSource = customers;
+        }
+
+        private void OnSortByNameClicked(object sender, EventArgs e)
+        {
+            SortCustomers("Name");
+        }
+
+        private void OnSortByEmailClicked(object sender, EventArgs e)
+        {
+            SortCustomers("Email");
+        }
+
+        private void FilterCustomers(string criterion, string minValue, string maxValue)
+        {
+            var customers = _masterCustomerList;
+            switch (criterion)
+            {
+                case "Name":
+                    if (!string.IsNullOrWhiteSpace(minValue))
+                    {
+                        customers = customers.Where(c => c.Name.Contains(minValue)).ToList();
+                    }
+                    break;
+                case "Email":
+                    if (!string.IsNullOrWhiteSpace(minValue))
+                    {
+                        customers = customers.Where(c => c.Email.Contains(minValue)).ToList();
+                    }
+                    break;
+            }
+            CustomersCollectionView.ItemsSource = customers;
+        }
+
+        private void OnFilterByNameClicked(object sender, EventArgs e)
+        {
+            FilterCustomers("Name", MinNameEntry.Text, MaxNameEntry.Text);
+        }
+
+        private void OnFilterByEmailClicked(object sender, EventArgs e)
+        {
+            FilterCustomers("Email", MinEmailEntry.Text, MaxEmailEntry.Text);
+        }
+
+        private void OnRefreshFiltersClicked(object sender, EventArgs e)
+        {
+            // Clear all filter inputs
+            MinNameEntry.Text = string.Empty;
+            MaxNameEntry.Text = string.Empty;
+            MinEmailEntry.Text = string.Empty;
+            MaxEmailEntry.Text = string.Empty;
+
+            // Reset the displayed customers to the full list
+            CustomersCollectionView.ItemsSource = _masterCustomerList;
         }
     }
 }
