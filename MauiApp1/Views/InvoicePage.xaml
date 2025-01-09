@@ -36,7 +36,7 @@
                         TextColor="#ffffff"
                         Margin="10,0,0,0"/>
             </HorizontalStackLayout>
-            <HorizontalStackLayout>
+            <HorizontalStackLayout Margin="10,0,0,0">
                 <Button Text="Sort by Order ID"
                         Clicked="OnSortByOrderIdClicked"
                         BackgroundColor="#ff9800"
@@ -53,24 +53,56 @@
                         TextColor="#ffffff"
                         Margin="0,0,10,0"/>
             </HorizontalStackLayout>
-            <Entry x:Name="FilterEntry"
-                   Placeholder="Enter filter value"/>
-            <HorizontalStackLayout>
-                <Button Text="Filter by Order ID"
+            <Label Text="Filter by Order ID" Margin="10,0,0,0"/>
+            <HorizontalStackLayout Margin="10,0,0,0">
+                <Entry x:Name="MinOrderIdEntry"
+                       Placeholder="Min Order ID"
+                       Keyboard="Numeric"
+                       WidthRequest="150"/>
+                <Entry x:Name="MaxOrderIdEntry"
+                       Placeholder="Max Order ID"
+                       Keyboard="Numeric"
+                       WidthRequest="150"
+                       Margin="10,0,0,0"/>
+                <Button Text="Filter"
                         Clicked="OnFilterByOrderIdClicked"
                         BackgroundColor="#4caf50"
                         TextColor="#ffffff"
-                        Margin="0,0,10,0"/>
-                <Button Text="Filter by Date"
+                        Margin="10,0,0,0"/>
+            </HorizontalStackLayout>
+            <Label Text="Filter by Invoice Date" Margin="10,0,0,0"/>
+            <HorizontalStackLayout Margin="10,0,0,0">
+                <Entry x:Name="MinInvoiceDateEntry"
+                       Placeholder="Min Invoice Date"
+                       Keyboard="Numeric"
+                       WidthRequest="150"/>
+                <Entry x:Name="MaxInvoiceDateEntry"
+                       Placeholder="Max Invoice Date"
+                       Keyboard="Numeric"
+                       WidthRequest="150"
+                       Margin="10,0,0,0"/>
+                <Button Text="Filter"
                         Clicked="OnFilterByInvoiceDateClicked"
                         BackgroundColor="#4caf50"
                         TextColor="#ffffff"
-                        Margin="0,0,10,0"/>
-                <Button Text="Filter by Amount"
+                        Margin="10,0,0,0"/>
+            </HorizontalStackLayout>
+            <Label Text="Filter by Total Amount" Margin="10,0,0,0"/>
+            <HorizontalStackLayout Margin="10,0,0,0">
+                <Entry x:Name="MinTotalAmountEntry"
+                       Placeholder="Min Total Amount"
+                       Keyboard="Numeric"
+                       WidthRequest="150"/>
+                <Entry x:Name="MaxTotalAmountEntry"
+                       Placeholder="Max Total Amount"
+                       Keyboard="Numeric"
+                       WidthRequest="150"
+                       Margin="10,0,0,0"/>
+                <Button Text="Filter"
                         Clicked="OnFilterByTotalAmountClicked"
                         BackgroundColor="#4caf50"
                         TextColor="#ffffff"
-                        Margin="0,0,10,0"/>
+                        Margin="10,0,0,0"/>
             </HorizontalStackLayout>
             <!-- Headers for the table -->
             <Grid ColumnDefinitions="*,*,*,0.5*,0.5*"

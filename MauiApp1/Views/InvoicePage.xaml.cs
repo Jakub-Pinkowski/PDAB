@@ -185,27 +185,27 @@ namespace MauiApp1
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private void FilterInvoices(string criterion, string value)
+        private void FilterInvoices(string criterion, string minValue, string maxValue)
         {
             var invoices = _masterInvoiceList;
             switch (criterion)
             {
                 case "OrderId":
-                    if (int.TryParse(value, out int orderId))
+                    if (int.TryParse(minValue, out int minOrderId) && int.TryParse(maxValue, out int maxOrderId))
                     {
-                        invoices = invoices.Where(i => i.OrderId == orderId).ToList();
+                        invoices = invoices.Where(i => i.OrderId >= minOrderId && i.OrderId <= maxOrderId).ToList();
                     }
                     break;
                 case "InvoiceDate":
-                    if (DateTime.TryParse(value, out DateTime invoiceDate))
+                    if (DateTime.TryParse(minValue, out DateTime minInvoiceDate) && DateTime.TryParse(maxValue, out DateTime maxInvoiceDate))
                     {
-                        invoices = invoices.Where(i => i.InvoiceDate.Date == invoiceDate.Date).ToList();
+                        invoices = invoices.Where(i => i.InvoiceDate.Date >= minInvoiceDate.Date && i.InvoiceDate.Date <= maxInvoiceDate.Date).ToList();
                     }
                     break;
                 case "TotalAmount":
-                    if (decimal.TryParse(value, out decimal totalAmount))
+                    if (decimal.TryParse(minValue, out decimal minTotalAmount) && decimal.TryParse(maxValue, out decimal maxTotalAmount))
                     {
-                        invoices = invoices.Where(i => i.TotalAmount == totalAmount).ToList();
+                        invoices = invoices.Where(i => i.TotalAmount >= minTotalAmount && i.TotalAmount <= maxTotalAmount).ToList();
                     }
                     break;
             }
@@ -214,17 +214,17 @@ namespace MauiApp1
 
         private void OnFilterByOrderIdClicked(object sender, EventArgs e)
         {
-            FilterInvoices("OrderId", FilterEntry.Text);
+            FilterInvoices("OrderId", MinOrderIdEntry.Text, MaxOrderIdEntry.Text);
         }
 
         private void OnFilterByInvoiceDateClicked(object sender, EventArgs e)
         {
-            FilterInvoices("InvoiceDate", FilterEntry.Text);
+            FilterInvoices("InvoiceDate", MinInvoiceDateEntry.Text, MaxInvoiceDateEntry.Text);
         }
 
         private void OnFilterByTotalAmountClicked(object sender, EventArgs e)
         {
-            FilterInvoices("TotalAmount", FilterEntry.Text);
+            FilterInvoices("TotalAmount", MinTotalAmountEntry.Text, MaxTotalAmountEntry.Text);
         }
     }
 }
