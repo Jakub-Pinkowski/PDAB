@@ -4,6 +4,7 @@ using Microsoft.Maui.Controls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
@@ -15,6 +16,8 @@ namespace MauiApp1
         private Shipper? _editingShipper;
         private string _buttonText = "Add Shipper";
         private bool _isEditing = false;
+        private bool _isSortedAscending = true;
+        private List<Shipper> _masterShipperList = new List<Shipper>();
 
         public new event PropertyChangedEventHandler? PropertyChanged;
 
@@ -48,8 +51,8 @@ namespace MauiApp1
 
         private async void LoadShippersAsync()
         {
-            var shippers = await _databaseService.GetItemsAsync<Shipper>();
-            ShippersCollectionView.ItemsSource = shippers;
+            _masterShipperList = await _databaseService.GetItemsAsync<Shipper>();
+            ShippersCollectionView.ItemsSource = _masterShipperList;
         }
 
         private async void OnAddShipperClicked(object sender, EventArgs e)
@@ -95,7 +98,7 @@ namespace MauiApp1
 
             if (shipper != null)
             {
-                bool confirm = await DisplayAlert("Confirm Delete", $"Are you sure you want to delete the shipper {shipper.Name}?", "Yes", "No");
+                bool confirm = await DisplayAlert("Confirm Delete", $"Are you sure you want to delete {shipper.Name}?", "Yes", "No");
                 if (confirm)
                 {
                     await _databaseService.DeleteItemAsync(shipper);
@@ -133,6 +136,76 @@ namespace MauiApp1
         private void OnRefreshClicked(object sender, EventArgs e)
         {
             LoadShippersAsync();
+        }
+
+        private void SortShippers(string criterion)
+        {
+            var shippers = ShippersCollectionView.ItemsSource.Cast<Shipper>().ToList();
+            switch (criterion)
+            {
+                case "Name":
+                    shippers = _isSortedAscending ? shippers.OrderBy(s => s.Name).ToList() : shippers.OrderByDescending(s => s.Name).ToList();
+                    _isSortedAscending = !_isSortedAscending;
+                    break;
+                case "Phone":
+                    shippers = _isSortedAscending ? shippers.OrderBy(s => s.Phone).ToList() : shippers.OrderByDescending(s => s.Phone).ToList();
+                    _isSortedAscending = !_isSortedAscending;
+                    break;
+            }
+            ShippersCollectionView.ItemsSource = shippers;
+        }
+
+        private void OnSortByNameClicked(object sender, EventArgs e)
+        {
+            SortShippers("Name");
+        }
+
+        private void OnSortByPhoneClicked(object sender, EventArgs e)
+        {
+            SortShippers("Phone");
+        }
+
+        private void FilterShippers(string criterion, string minValue, string maxValue)
+        {
+            var shippers = _masterShipperList;
+            switch (criterion)
+            {
+                case "Name":
+                    if (!string.IsNullOrWhiteSpace(minValue))
+                    {
+                        shippers = shippers.Where(s => s.Name.Contains(minValue)).ToList();
+                    }
+                    break;
+                case "Phone":
+                    if (!string.IsNullOrWhiteSpace(minValue))
+                    {
+                        shippers = shippers.Where(s => s.Phone.Contains(minValue)).ToList();
+                    }
+                    break;
+            }
+            ShippersCollectionView.ItemsSource = shippers;
+        }
+
+        private void OnFilterByNameClicked(object sender, EventArgs e)
+        {
+            FilterShippers("Name", MinNameEntry.Text, MaxNameEntry.Text);
+        }
+
+        private void OnFilterByPhoneClicked(object sender, EventArgs e)
+        {
+            FilterShippers("Phone", MinPhoneEntry.Text, MaxPhoneEntry.Text);
+        }
+
+        private void OnRefreshFiltersClicked(object sender, EventArgs e)
+        {
+            // Clear all filter inputs
+            MinNameEntry.Text = string.Empty;
+            MaxNameEntry.Text = string.Empty;
+            MinPhoneEntry.Text = string.Empty;
+            MaxPhoneEntry.Text = string.Empty;
+
+            // Reset the displayed shippers to the full list
+            ShippersCollectionView.ItemsSource = _masterShipperList;
         }
 
         protected new void OnPropertyChanged([CallerMemberName] string? propertyName = null)
