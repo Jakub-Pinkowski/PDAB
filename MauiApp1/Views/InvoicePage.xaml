@@ -36,40 +36,39 @@
                         TextColor="#ffffff"
                         Margin="10,0,0,0"/>
             </HorizontalStackLayout>
-            <HorizontalStackLayout Margin="10,0,0,0">
+            <HorizontalStackLayout>
                 <Button Text="Sort by Order ID"
                         Clicked="OnSortByOrderIdClicked"
-                        BackgroundColor="#007acc"
+                        BackgroundColor="#ff9800"
                         TextColor="#ffffff"
                         Margin="0,0,10,0"/>
                 <Button Text="Sort by Date"
                         Clicked="OnSortByInvoiceDateClicked"
-                        BackgroundColor="#007acc"
+                        BackgroundColor="#ff9800"
                         TextColor="#ffffff"
                         Margin="0,0,10,0"/>
                 <Button Text="Sort by Amount"
                         Clicked="OnSortByTotalAmountClicked"
-                        BackgroundColor="#007acc"
+                        BackgroundColor="#ff9800"
                         TextColor="#ffffff"
                         Margin="0,0,10,0"/>
             </HorizontalStackLayout>
             <Entry x:Name="FilterEntry"
-                   Placeholder="Enter filter value"
-                   Margin="10,0,0,0"/>
-            <HorizontalStackLayout Margin="10,0,0,0">
+                   Placeholder="Enter filter value"/>
+            <HorizontalStackLayout>
                 <Button Text="Filter by Order ID"
                         Clicked="OnFilterByOrderIdClicked"
-                        BackgroundColor="#007acc"
+                        BackgroundColor="#4caf50"
                         TextColor="#ffffff"
                         Margin="0,0,10,0"/>
                 <Button Text="Filter by Date"
                         Clicked="OnFilterByInvoiceDateClicked"
-                        BackgroundColor="#007acc"
+                        BackgroundColor="#4caf50"
                         TextColor="#ffffff"
                         Margin="0,0,10,0"/>
                 <Button Text="Filter by Amount"
                         Clicked="OnFilterByTotalAmountClicked"
-                        BackgroundColor="#007acc"
+                        BackgroundColor="#4caf50"
                         TextColor="#ffffff"
                         Margin="0,0,10,0"/>
             </HorizontalStackLayout>
