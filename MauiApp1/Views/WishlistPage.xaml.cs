@@ -4,6 +4,7 @@ using Microsoft.Maui.Controls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
@@ -15,6 +16,8 @@ namespace MauiApp1
         private WishlistItem? _editingWishlistItem;
         private string _buttonText = "Add Item";
         private bool _isEditing = false;
+        private bool _isSortedAscending = true;
+        private List<WishlistItem> _masterWishlistItemList = new List<WishlistItem>();
 
         public new event PropertyChangedEventHandler? PropertyChanged;
 
@@ -48,8 +51,8 @@ namespace MauiApp1
 
         private async void LoadWishlistItemsAsync()
         {
-            var wishlistItems = await _databaseService.GetItemsAsync<WishlistItem>();
-            WishlistItemsCollectionView.ItemsSource = wishlistItems;
+            _masterWishlistItemList = await _databaseService.GetItemsAsync<WishlistItem>();
+            WishlistItemsCollectionView.ItemsSource = _masterWishlistItemList;
         }
 
         private async void OnAddWishlistItemClicked(object sender, EventArgs e)
@@ -133,6 +136,92 @@ namespace MauiApp1
         private void OnRefreshClicked(object sender, EventArgs e)
         {
             LoadWishlistItemsAsync();
+        }
+
+        private void SortWishlistItems(string criterion)
+        {
+            var wishlistItems = WishlistItemsCollectionView.ItemsSource.Cast<WishlistItem>().ToList();
+            switch (criterion)
+            {
+                case "ProductId":
+                    wishlistItems = _isSortedAscending ? wishlistItems.OrderBy(w => w.ProductId).ToList() : wishlistItems.OrderByDescending(w => w.ProductId).ToList();
+                    _isSortedAscending = !_isSortedAscending;
+                    break;
+                case "CustomerId":
+                    wishlistItems = _isSortedAscending ? wishlistItems.OrderBy(w => w.CustomerId).ToList() : wishlistItems.OrderByDescending(w => w.CustomerId).ToList();
+                    _isSortedAscending = !_isSortedAscending;
+                    break;
+            }
+            WishlistItemsCollectionView.ItemsSource = wishlistItems;
+        }
+
+        private void OnSortByProductIdClicked(object sender, EventArgs e)
+        {
+            SortWishlistItems("ProductId");
+        }
+
+        private void OnSortByCustomerIdClicked(object sender, EventArgs e)
+        {
+            SortWishlistItems("CustomerId");
+        }
+
+        private void FilterWishlistItems(string criterion, string minValue, string maxValue)
+        {
+            var wishlistItems = _masterWishlistItemList;
+            switch (criterion)
+            {
+                case "ProductId":
+                    if (int.TryParse(minValue, out int minProductId) && int.TryParse(maxValue, out int maxProductId))
+                    {
+                        wishlistItems = wishlistItems.Where(w => w.ProductId >= minProductId && w.ProductId <= maxProductId).ToList();
+                    }
+                    else if (int.TryParse(minValue, out minProductId))
+                    {
+                        wishlistItems = wishlistItems.Where(w => w.ProductId >= minProductId).ToList();
+                    }
+                    else if (int.TryParse(maxValue, out maxProductId))
+                    {
+                        wishlistItems = wishlistItems.Where(w => w.ProductId <= maxProductId).ToList();
+                    }
+                    break;
+                case "CustomerId":
+                    if (int.TryParse(minValue, out int minCustomerId) && int.TryParse(maxValue, out int maxCustomerId))
+                    {
+                        wishlistItems = wishlistItems.Where(w => w.CustomerId >= minCustomerId && w.CustomerId <= maxCustomerId).ToList();
+                    }
+                    else if (int.TryParse(minValue, out minCustomerId))
+                    {
+                        wishlistItems = wishlistItems.Where(w => w.CustomerId >= minCustomerId).ToList();
+                    }
+                    else if (int.TryParse(maxValue, out maxCustomerId))
+                    {
+                        wishlistItems = wishlistItems.Where(w => w.CustomerId <= maxCustomerId).ToList();
+                    }
+                    break;
+            }
+            WishlistItemsCollectionView.ItemsSource = wishlistItems;
+        }
+
+        private void OnFilterByProductIdClicked(object sender, EventArgs e)
+        {
+            FilterWishlistItems("ProductId", MinProductIdEntry.Text, MaxProductIdEntry.Text);
+        }
+
+        private void OnFilterByCustomerIdClicked(object sender, EventArgs e)
+        {
+            FilterWishlistItems("CustomerId", MinCustomerIdEntry.Text, MaxCustomerIdEntry.Text);
+        }
+
+        private void OnRefreshFiltersClicked(object sender, EventArgs e)
+        {
+            // Clear all filter inputs
+            MinProductIdEntry.Text = string.Empty;
+            MaxProductIdEntry.Text = string.Empty;
+            MinCustomerIdEntry.Text = string.Empty;
+            MaxCustomerIdEntry.Text = string.Empty;
+
+            // Reset the displayed wishlist items to the full list
+            WishlistItemsCollectionView.ItemsSource = _masterWishlistItemList;
         }
 
         protected new void OnPropertyChanged([CallerMemberName] string? propertyName = null)
