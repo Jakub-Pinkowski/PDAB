@@ -53,7 +53,7 @@
                         TextColor="#ffffff"
                         Margin="0,0,10,0"/>
             </HorizontalStackLayout>
-            <Label Text="Filter by Order ID" Margin="10,0,0,0"/>
+            <Label Text="Filter by Order ID"/>
             <HorizontalStackLayout>
                 <Entry x:Name="MinOrderIdEntry"
                        Placeholder="Min Order ID"
@@ -70,8 +70,8 @@
                         TextColor="#ffffff"
                         Margin="10,0,0,0"/>
             </HorizontalStackLayout>
-            <Label Text="Filter by Invoice Date" />
-            <HorizontalStackLayout >
+            <Label Text="Filter by Invoice Date"/>
+            <HorizontalStackLayout>
                 <Entry x:Name="MinInvoiceDateEntry"
                        Placeholder="Min Invoice Date"
                        Keyboard="Numeric"
@@ -87,7 +87,7 @@
                         TextColor="#ffffff"
                         Margin="10,0,0,0"/>
             </HorizontalStackLayout>
-            <Label Text="Filter by Total Amount" />
+            <Label Text="Filter by Total Amount"/>
             <HorizontalStackLayout>
                 <Entry x:Name="MinTotalAmountEntry"
                        Placeholder="Min Total Amount"
@@ -103,6 +103,12 @@
                         BackgroundColor="#4caf50"
                         TextColor="#ffffff"
                         Margin="10,0,0,0"/>
+            </HorizontalStackLayout>
+            <HorizontalStackLayout>
+                <Button Text="Refresh Filters"
+                        Clicked="OnRefreshFiltersClicked"
+                        BackgroundColor="#f44336"
+                        TextColor="#ffffff"/>
             </HorizontalStackLayout>
             <!-- Headers for the table -->
             <Grid ColumnDefinitions="*,*,*,0.5*,0.5*"

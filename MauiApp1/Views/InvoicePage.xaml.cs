@@ -250,5 +250,19 @@ namespace MauiApp1
         {
             FilterInvoices("TotalAmount", MinTotalAmountEntry.Text, MaxTotalAmountEntry.Text);
         }
+
+        private void OnRefreshFiltersClicked(object sender, EventArgs e)
+        {
+            // Clear all filter inputs
+            MinOrderIdEntry.Text = string.Empty;
+            MaxOrderIdEntry.Text = string.Empty;
+            MinInvoiceDateEntry.Text = string.Empty;
+            MaxInvoiceDateEntry.Text = string.Empty;
+            MinTotalAmountEntry.Text = string.Empty;
+            MaxTotalAmountEntry.Text = string.Empty;
+
+            // Reset the displayed invoices to the full list
+            InvoicesCollectionView.ItemsSource = _masterInvoiceList;
+        }
     }
 }
