@@ -22,7 +22,7 @@
                             Placeholder="Quantity"
                             Keyboard="Numeric"/>
                      <Entry x:Name="PriceEntry"
-                            Placeholder="Price"
+                            Placeholder="Unit Price"
                             Keyboard="Numeric"/>
                      <HorizontalStackLayout>
                             <Button Text="{Binding ButtonText}"
@@ -36,6 +36,107 @@
                             <Button Text="Refresh the table"
                                     Clicked="OnRefreshClicked"
                                     BackgroundColor="#007acc"
+                                    TextColor="#ffffff"
+                                    Margin="10,0,0,0"/>
+                     </HorizontalStackLayout>
+                     <HorizontalStackLayout Margin="10,0,0,0">
+                            <Button Text="Sort by Order ID"
+                                    Clicked="OnSortByOrderIdClicked"
+                                    BackgroundColor="#ff9800"
+                                    TextColor="#ffffff"
+                                    Margin="0,0,10,0"/>
+                            <Button Text="Sort by Product ID"
+                                    Clicked="OnSortByProductIdClicked"
+                                    BackgroundColor="#ff9800"
+                                    TextColor="#ffffff"
+                                    Margin="0,0,10,0"/>
+                            <Button Text="Sort by Quantity"
+                                    Clicked="OnSortByQuantityClicked"
+                                    BackgroundColor="#ff9800"
+                                    TextColor="#ffffff"
+                                    Margin="0,0,10,0"/>
+                            <Button Text="Sort by Unit Price"
+                                    Clicked="OnSortByPriceClicked"
+                                    BackgroundColor="#ff9800"
+                                    TextColor="#ffffff"
+                                    Margin="0,0,10,0"/>
+                     </HorizontalStackLayout>
+                     <Label Text="Filter by Order ID"
+                            Margin="10,0,0,0"/>
+                     <HorizontalStackLayout Margin="10,0,0,0">
+                            <Entry x:Name="MinOrderIdEntry"
+                                   Placeholder="Min Order ID"
+                                   Keyboard="Numeric"
+                                   WidthRequest="150"/>
+                            <Entry x:Name="MaxOrderIdEntry"
+                                   Placeholder="Max Order ID"
+                                   Keyboard="Numeric"
+                                   WidthRequest="150"
+                                   Margin="10,0,0,0"/>
+                            <Button Text="Filter"
+                                    Clicked="OnFilterByOrderIdClicked"
+                                    BackgroundColor="#4caf50"
+                                    TextColor="#ffffff"
+                                    Margin="10,0,0,0"/>
+                     </HorizontalStackLayout>
+                     <Label Text="Filter by Product ID"
+                            Margin="10,0,0,0"/>
+                     <HorizontalStackLayout Margin="10,0,0,0">
+                            <Entry x:Name="MinProductIdEntry"
+                                   Placeholder="Min Product ID"
+                                   Keyboard="Numeric"
+                                   WidthRequest="150"/>
+                            <Entry x:Name="MaxProductIdEntry"
+                                   Placeholder="Max Product ID"
+                                   Keyboard="Numeric"
+                                   WidthRequest="150"
+                                   Margin="10,0,0,0"/>
+                            <Button Text="Filter"
+                                    Clicked="OnFilterByProductIdClicked"
+                                    BackgroundColor="#4caf50"
+                                    TextColor="#ffffff"
+                                    Margin="10,0,0,0"/>
+                     </HorizontalStackLayout>
+                     <Label Text="Filter by Quantity"
+                            Margin="10,0,0,0"/>
+                     <HorizontalStackLayout Margin="10,0,0,0">
+                            <Entry x:Name="MinQuantityEntry"
+                                   Placeholder="Min Quantity"
+                                   Keyboard="Numeric"
+                                   WidthRequest="150"/>
+                            <Entry x:Name="MaxQuantityEntry"
+                                   Placeholder="Max Quantity"
+                                   Keyboard="Numeric"
+                                   WidthRequest="150"
+                                   Margin="10,0,0,0"/>
+                            <Button Text="Filter"
+                                    Clicked="OnFilterByQuantityClicked"
+                                    BackgroundColor="#4caf50"
+                                    TextColor="#ffffff"
+                                    Margin="10,0,0,0"/>
+                     </HorizontalStackLayout>
+                     <Label Text="Filter by Unit Price"
+                            Margin="10,0,0,0"/>
+                     <HorizontalStackLayout Margin="10,0,0,0">
+                            <Entry x:Name="MinPriceEntry"
+                                   Placeholder="Min Unit Price"
+                                   Keyboard="Numeric"
+                                   WidthRequest="150"/>
+                            <Entry x:Name="MaxPriceEntry"
+                                   Placeholder="Max Unit Price"
+                                   Keyboard="Numeric"
+                                   WidthRequest="150"
+                                   Margin="10,0,0,0"/>
+                            <Button Text="Filter"
+                                    Clicked="OnFilterByPriceClicked"
+                                    BackgroundColor="#4caf50"
+                                    TextColor="#ffffff"
+                                    Margin="10,0,0,0"/>
+                     </HorizontalStackLayout>
+                     <HorizontalStackLayout>
+                            <Button Text="Refresh Filters"
+                                    Clicked="OnRefreshFiltersClicked"
+                                    BackgroundColor="#f44336"
                                     TextColor="#ffffff"
                                     Margin="10,0,0,0"/>
                      </HorizontalStackLayout>
