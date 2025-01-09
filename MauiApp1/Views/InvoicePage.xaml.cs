@@ -4,6 +4,7 @@ using Microsoft.Maui.Controls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
@@ -15,6 +16,7 @@ namespace MauiApp1
         private Invoice? _editingInvoice;
         private string _buttonText = "Add Invoice";
         private bool _isEditing = false;
+        private bool _isSortedAscending = true;
 
         public new event PropertyChangedEventHandler? PropertyChanged;
 
@@ -139,6 +141,42 @@ namespace MauiApp1
         private void OnRefreshClicked(object sender, EventArgs e)
         {
             LoadInvoicesAsync();
+        }
+
+        private void SortInvoices(string criterion)
+        {
+            var invoices = InvoicesCollectionView.ItemsSource.Cast<Invoice>().ToList();
+            switch (criterion)
+            {
+                case "OrderId":
+                    invoices = _isSortedAscending ? invoices.OrderBy(i => i.OrderId).ToList() : invoices.OrderByDescending(i => i.OrderId).ToList();
+                    _isSortedAscending = !_isSortedAscending;
+                    break;
+                case "InvoiceDate":
+                    invoices = _isSortedAscending ? invoices.OrderBy(i => i.InvoiceDate).ToList() : invoices.OrderByDescending(i => i.InvoiceDate).ToList();
+                    _isSortedAscending = !_isSortedAscending;
+                    break;
+                case "TotalAmount":
+                    invoices = _isSortedAscending ? invoices.OrderBy(i => i.TotalAmount).ToList() : invoices.OrderByDescending(i => i.TotalAmount).ToList();
+                    _isSortedAscending = !_isSortedAscending;
+                    break;
+            }
+            InvoicesCollectionView.ItemsSource = invoices;
+        }
+
+        private void OnSortByOrderIdClicked(object sender, EventArgs e)
+        {
+            SortInvoices("OrderId");
+        }
+
+        private void OnSortByInvoiceDateClicked(object sender, EventArgs e)
+        {
+            SortInvoices("InvoiceDate");
+        }
+
+        private void OnSortByTotalAmountClicked(object sender, EventArgs e)
+        {
+            SortInvoices("TotalAmount");
         }
 
         protected new void OnPropertyChanged([CallerMemberName] string? propertyName = null)

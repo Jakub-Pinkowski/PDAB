@@ -36,6 +36,23 @@
                         TextColor="#ffffff"
                         Margin="10,0,0,0"/>
             </HorizontalStackLayout>
+            <HorizontalStackLayout Margin="10,0,0,0">
+                <Button Text="Sort by Order ID"
+                        Clicked="OnSortByOrderIdClicked"
+                        BackgroundColor="#007acc"
+                        TextColor="#ffffff"
+                        Margin="0,0,10,0"/>
+                <Button Text="Sort by Date"
+                        Clicked="OnSortByInvoiceDateClicked"
+                        BackgroundColor="#007acc"
+                        TextColor="#ffffff"
+                        Margin="0,0,10,0"/>
+                <Button Text="Sort by Amount"
+                        Clicked="OnSortByTotalAmountClicked"
+                        BackgroundColor="#007acc"
+                        TextColor="#ffffff"
+                        Margin="0,0,10,0"/>
+            </HorizontalStackLayout>
             <!-- Headers for the table -->
             <Grid ColumnDefinitions="*,*,*,0.5*,0.5*"
                   Padding="10,0">
