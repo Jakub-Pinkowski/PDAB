@@ -36,7 +36,7 @@
                         TextColor="#ffffff"
                         Margin="10,0,0,0"/>
             </HorizontalStackLayout>
-            <HorizontalStackLayout Margin="10,0,0,0">
+            <HorizontalStackLayout>
                 <Button Text="Sort by Order ID"
                         Clicked="OnSortByOrderIdClicked"
                         BackgroundColor="#ff9800"
@@ -54,7 +54,7 @@
                         Margin="0,0,10,0"/>
             </HorizontalStackLayout>
             <Label Text="Filter by Order ID" Margin="10,0,0,0"/>
-            <HorizontalStackLayout Margin="10,0,0,0">
+            <HorizontalStackLayout>
                 <Entry x:Name="MinOrderIdEntry"
                        Placeholder="Min Order ID"
                        Keyboard="Numeric"
@@ -70,8 +70,8 @@
                         TextColor="#ffffff"
                         Margin="10,0,0,0"/>
             </HorizontalStackLayout>
-            <Label Text="Filter by Invoice Date" Margin="10,0,0,0"/>
-            <HorizontalStackLayout Margin="10,0,0,0">
+            <Label Text="Filter by Invoice Date" />
+            <HorizontalStackLayout >
                 <Entry x:Name="MinInvoiceDateEntry"
                        Placeholder="Min Invoice Date"
                        Keyboard="Numeric"
@@ -87,8 +87,8 @@
                         TextColor="#ffffff"
                         Margin="10,0,0,0"/>
             </HorizontalStackLayout>
-            <Label Text="Filter by Total Amount" Margin="10,0,0,0"/>
-            <HorizontalStackLayout Margin="10,0,0,0">
+            <Label Text="Filter by Total Amount" />
+            <HorizontalStackLayout>
                 <Entry x:Name="MinTotalAmountEntry"
                        Placeholder="Min Total Amount"
                        Keyboard="Numeric"
