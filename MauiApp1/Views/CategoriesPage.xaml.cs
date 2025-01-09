@@ -4,6 +4,7 @@ using Microsoft.Maui.Controls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
@@ -15,6 +16,8 @@ namespace MauiApp1
         private Category? _editingCategory;
         private string _buttonText = "Add Category";
         private bool _isEditing = false;
+        private bool _isSortedAscending = true;
+        private List<Category> _masterCategoryList = new List<Category>();
 
         public new event PropertyChangedEventHandler? PropertyChanged;
 
@@ -48,8 +51,8 @@ namespace MauiApp1
 
         private async void LoadCategoriesAsync()
         {
-            var categories = await _databaseService.GetItemsAsync<Category>();
-            CategoriesCollectionView.ItemsSource = categories;
+            _masterCategoryList = await _databaseService.GetItemsAsync<Category>();
+            CategoriesCollectionView.ItemsSource = _masterCategoryList;
         }
 
         private async void OnAddCategoryClicked(object sender, EventArgs e)
@@ -138,6 +141,76 @@ namespace MauiApp1
         private void OnRefreshClicked(object sender, EventArgs e)
         {
             LoadCategoriesAsync();
+        }
+
+        private void SortCategories(string criterion)
+        {
+            var categories = CategoriesCollectionView.ItemsSource.Cast<Category>().ToList();
+            switch (criterion)
+            {
+                case "Name":
+                    categories = _isSortedAscending ? categories.OrderBy(c => c.Name).ToList() : categories.OrderByDescending(c => c.Name).ToList();
+                    _isSortedAscending = !_isSortedAscending;
+                    break;
+                case "Description":
+                    categories = _isSortedAscending ? categories.OrderBy(c => c.Description).ToList() : categories.OrderByDescending(c => c.Description).ToList();
+                    _isSortedAscending = !_isSortedAscending;
+                    break;
+            }
+            CategoriesCollectionView.ItemsSource = categories;
+        }
+
+        private void OnSortByNameClicked(object sender, EventArgs e)
+        {
+            SortCategories("Name");
+        }
+
+        private void OnSortByDescriptionClicked(object sender, EventArgs e)
+        {
+            SortCategories("Description");
+        }
+
+        private void FilterCategories(string criterion, string minValue, string maxValue)
+        {
+            var categories = _masterCategoryList;
+            switch (criterion)
+            {
+                case "Name":
+                    if (!string.IsNullOrWhiteSpace(minValue))
+                    {
+                        categories = categories.Where(c => c.Name.Contains(minValue)).ToList();
+                    }
+                    break;
+                case "Description":
+                    if (!string.IsNullOrWhiteSpace(minValue))
+                    {
+                        categories = categories.Where(c => c.Description.Contains(minValue)).ToList();
+                    }
+                    break;
+            }
+            CategoriesCollectionView.ItemsSource = categories;
+        }
+
+        private void OnFilterByNameClicked(object sender, EventArgs e)
+        {
+            FilterCategories("Name", MinNameEntry.Text, MaxNameEntry.Text);
+        }
+
+        private void OnFilterByDescriptionClicked(object sender, EventArgs e)
+        {
+            FilterCategories("Description", MinDescriptionEntry.Text, MaxDescriptionEntry.Text);
+        }
+
+        private void OnRefreshFiltersClicked(object sender, EventArgs e)
+        {
+            // Clear all filter inputs
+            MinNameEntry.Text = string.Empty;
+            MaxNameEntry.Text = string.Empty;
+            MinDescriptionEntry.Text = string.Empty;
+            MaxDescriptionEntry.Text = string.Empty;
+
+            // Reset the displayed categories to the full list
+            CategoriesCollectionView.ItemsSource = _masterCategoryList;
         }
 
         protected new void OnPropertyChanged([CallerMemberName] string? propertyName = null)

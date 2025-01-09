@@ -33,6 +33,57 @@
                         TextColor="#ffffff"
                         Margin="10,0,0,0"/>
             </HorizontalStackLayout>
+            <HorizontalStackLayout Margin="10,0,0,0">
+                <Button Text="Sort by Name"
+                        Clicked="OnSortByNameClicked"
+                        BackgroundColor="#ff9800"
+                        TextColor="#ffffff"
+                        Margin="0,0,10,0"/>
+                <Button Text="Sort by Description"
+                        Clicked="OnSortByDescriptionClicked"
+                        BackgroundColor="#ff9800"
+                        TextColor="#ffffff"
+                        Margin="0,0,10,0"/>
+            </HorizontalStackLayout>
+            <Label Text="Filter by Name"
+                    Margin="10,0,0,0"/>
+            <HorizontalStackLayout Margin="10,0,0,0">
+                <Entry x:Name="MinNameEntry"
+                       Placeholder="Min Name"
+                       WidthRequest="150"/>
+                <Entry x:Name="MaxNameEntry"
+                       Placeholder="Max Name"
+                       WidthRequest="150"
+                       Margin="10,0,0,0"/>
+                <Button Text="Filter"
+                        Clicked="OnFilterByNameClicked"
+                        BackgroundColor="#4caf50"
+                        TextColor="#ffffff"
+                        Margin="10,0,0,0"/>
+            </HorizontalStackLayout>
+            <Label Text="Filter by Description"
+                    Margin="10,0,0,0"/>
+            <HorizontalStackLayout Margin="10,0,0,0">
+                <Entry x:Name="MinDescriptionEntry"
+                       Placeholder="Min Description"
+                       WidthRequest="150"/>
+                <Entry x:Name="MaxDescriptionEntry"
+                       Placeholder="Max Description"
+                       WidthRequest="150"
+                       Margin="10,0,0,0"/>
+                <Button Text="Filter"
+                        Clicked="OnFilterByDescriptionClicked"
+                        BackgroundColor="#4caf50"
+                        TextColor="#ffffff"
+                        Margin="10,0,0,0"/>
+            </HorizontalStackLayout>
+            <HorizontalStackLayout>
+                <Button Text="Refresh Filters"
+                        Clicked="OnRefreshFiltersClicked"
+                        BackgroundColor="#f44336"
+                        TextColor="#ffffff"
+                        Margin="10,0,0,0"/>
+            </HorizontalStackLayout>
             <!-- Headers for the table -->
             <Grid ColumnDefinitions="*,2*,*,0.5*,0.5*"
                   Padding="10,0">
@@ -43,7 +94,7 @@
                        FontAttributes="Bold"
                        VerticalOptions="Center"
                        Grid.Column="1"/>
-                <Label Text="Is Active"
+                <Label Text="Active"
                        FontAttributes="Bold"
                        VerticalOptions="Center"
                        Grid.Column="2"/>
@@ -65,7 +116,7 @@
                                            FontSize="20"
                                            VerticalOptions="Center"
                                            Grid.Column="1"/>
-                                    <Label Text="{Binding IsActive}"
+                                    <Label Text="{Binding IsActive, Converter={StaticResource BooleanToYesNoConverter}}"
                                            FontSize="20"
                                            VerticalOptions="Center"
                                            Grid.Column="2"/>
