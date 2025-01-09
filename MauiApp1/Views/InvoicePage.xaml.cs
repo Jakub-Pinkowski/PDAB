@@ -195,17 +195,41 @@ namespace MauiApp1
                     {
                         invoices = invoices.Where(i => i.OrderId >= minOrderId && i.OrderId <= maxOrderId).ToList();
                     }
+                    else if (int.TryParse(minValue, out minOrderId))
+                    {
+                        invoices = invoices.Where(i => i.OrderId >= minOrderId).ToList();
+                    }
+                    else if (int.TryParse(maxValue, out maxOrderId))
+                    {
+                        invoices = invoices.Where(i => i.OrderId <= maxOrderId).ToList();
+                    }
                     break;
                 case "InvoiceDate":
                     if (DateTime.TryParse(minValue, out DateTime minInvoiceDate) && DateTime.TryParse(maxValue, out DateTime maxInvoiceDate))
                     {
                         invoices = invoices.Where(i => i.InvoiceDate.Date >= minInvoiceDate.Date && i.InvoiceDate.Date <= maxInvoiceDate.Date).ToList();
                     }
+                    else if (DateTime.TryParse(minValue, out minInvoiceDate))
+                    {
+                        invoices = invoices.Where(i => i.InvoiceDate.Date >= minInvoiceDate.Date).ToList();
+                    }
+                    else if (DateTime.TryParse(maxValue, out maxInvoiceDate))
+                    {
+                        invoices = invoices.Where(i => i.InvoiceDate.Date <= maxInvoiceDate.Date).ToList();
+                    }
                     break;
                 case "TotalAmount":
                     if (decimal.TryParse(minValue, out decimal minTotalAmount) && decimal.TryParse(maxValue, out decimal maxTotalAmount))
                     {
                         invoices = invoices.Where(i => i.TotalAmount >= minTotalAmount && i.TotalAmount <= maxTotalAmount).ToList();
+                    }
+                    else if (decimal.TryParse(minValue, out minTotalAmount))
+                    {
+                        invoices = invoices.Where(i => i.TotalAmount >= minTotalAmount).ToList();
+                    }
+                    else if (decimal.TryParse(maxValue, out maxTotalAmount))
+                    {
+                        invoices = invoices.Where(i => i.TotalAmount <= maxTotalAmount).ToList();
                     }
                     break;
             }
