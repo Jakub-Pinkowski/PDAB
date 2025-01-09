@@ -38,6 +38,84 @@
                                     TextColor="#ffffff"
                                     Margin="10,0,0,0"/>
                      </HorizontalStackLayout>
+                     <HorizontalStackLayout Margin="10,0,0,0">
+                            <Button Text="Sort by Product ID"
+                                    Clicked="OnSortByProductIdClicked"
+                                    BackgroundColor="#ff9800"
+                                    TextColor="#ffffff"
+                                    Margin="0,0,10,0"/>
+                            <Button Text="Sort by Customer ID"
+                                    Clicked="OnSortByCustomerIdClicked"
+                                    BackgroundColor="#ff9800"
+                                    TextColor="#ffffff"
+                                    Margin="0,0,10,0"/>
+                            <Button Text="Sort by Rating"
+                                    Clicked="OnSortByRatingClicked"
+                                    BackgroundColor="#ff9800"
+                                    TextColor="#ffffff"
+                                    Margin="0,0,10,0"/>
+                     </HorizontalStackLayout>
+                     <Label Text="Filter by Product ID"
+                            Margin="10,0,0,0"/>
+                     <HorizontalStackLayout Margin="10,0,0,0">
+                            <Entry x:Name="MinProductIdEntry"
+                                   Placeholder="Min Product ID"
+                                   Keyboard="Numeric"
+                                   WidthRequest="150"/>
+                            <Entry x:Name="MaxProductIdEntry"
+                                   Placeholder="Max Product ID"
+                                   Keyboard="Numeric"
+                                   WidthRequest="150"
+                                   Margin="10,0,0,0"/>
+                            <Button Text="Filter"
+                                    Clicked="OnFilterByProductIdClicked"
+                                    BackgroundColor="#4caf50"
+                                    TextColor="#ffffff"
+                                    Margin="10,0,0,0"/>
+                     </HorizontalStackLayout>
+                     <Label Text="Filter by Customer ID"
+                            Margin="10,0,0,0"/>
+                     <HorizontalStackLayout Margin="10,0,0,0">
+                            <Entry x:Name="MinCustomerIdEntry"
+                                   Placeholder="Min Customer ID"
+                                   Keyboard="Numeric"
+                                   WidthRequest="150"/>
+                            <Entry x:Name="MaxCustomerIdEntry"
+                                   Placeholder="Max Customer ID"
+                                   Keyboard="Numeric"
+                                   WidthRequest="150"
+                                   Margin="10,0,0,0"/>
+                            <Button Text="Filter"
+                                    Clicked="OnFilterByCustomerIdClicked"
+                                    BackgroundColor="#4caf50"
+                                    TextColor="#ffffff"
+                                    Margin="10,0,0,0"/>
+                     </HorizontalStackLayout>
+                     <Label Text="Filter by Rating"
+                            Margin="10,0,0,0"/>
+                     <HorizontalStackLayout Margin="10,0,0,0">
+                            <Entry x:Name="MinRatingEntry"
+                                   Placeholder="Min Rating"
+                                   Keyboard="Numeric"
+                                   WidthRequest="150"/>
+                            <Entry x:Name="MaxRatingEntry"
+                                   Placeholder="Max Rating"
+                                   Keyboard="Numeric"
+                                   WidthRequest="150"
+                                   Margin="10,0,0,0"/>
+                            <Button Text="Filter"
+                                    Clicked="OnFilterByRatingClicked"
+                                    BackgroundColor="#4caf50"
+                                    TextColor="#ffffff"
+                                    Margin="10,0,0,0"/>
+                     </HorizontalStackLayout>
+                     <HorizontalStackLayout>
+                            <Button Text="Refresh Filters"
+                                    Clicked="OnRefreshFiltersClicked"
+                                    BackgroundColor="#f44336"
+                                    TextColor="#ffffff"
+                                    Margin="10,0,0,0"/>
+                     </HorizontalStackLayout>
                      <!-- Headers for the table -->
                      <Grid ColumnDefinitions="*,*,*,*,0.5*,0.5*"
                            Padding="10,0">
