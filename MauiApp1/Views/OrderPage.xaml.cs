@@ -4,6 +4,7 @@ using Microsoft.Maui.Controls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
@@ -15,6 +16,8 @@ namespace MauiApp1
         private Order? _editingOrder;
         private string _buttonText = "Add Order";
         private bool _isEditing = false;
+        private bool _isSortedAscending = true;
+        private List<Order> _masterOrderList = new List<Order>();
 
         public new event PropertyChangedEventHandler? PropertyChanged;
 
@@ -48,8 +51,8 @@ namespace MauiApp1
 
         private async void LoadOrdersAsync()
         {
-            var orders = await _databaseService.GetItemsAsync<Order>();
-            OrdersCollectionView.ItemsSource = orders;
+            _masterOrderList = await _databaseService.GetItemsAsync<Order>();
+            OrdersCollectionView.ItemsSource = _masterOrderList;
         }
 
         private async void OnAddOrderClicked(object sender, EventArgs e)
@@ -57,7 +60,7 @@ namespace MauiApp1
             if (string.IsNullOrWhiteSpace(CustomerIdEntry.Text) || !int.TryParse(CustomerIdEntry.Text, out var customerId) || customerId <= 0 ||
                 string.IsNullOrWhiteSpace(OrderDateEntry.Text) || !DateTime.TryParse(OrderDateEntry.Text, out var orderDate))
             {
-                await DisplayAlert("Validation Error", "Please ensure all fields are filled correctly. Customer ID must be a positive integer and Order Date must be a valid date.", "OK");
+                await DisplayAlert("Validation Error", "Please ensure all fields are filled correctly. Customer ID must be a positive integer, and Order Date must be a valid date.", "OK");
                 return;
             }
 
@@ -133,6 +136,92 @@ namespace MauiApp1
         private void OnRefreshClicked(object sender, EventArgs e)
         {
             LoadOrdersAsync();
+        }
+
+        private void SortOrders(string criterion)
+        {
+            var orders = OrdersCollectionView.ItemsSource.Cast<Order>().ToList();
+            switch (criterion)
+            {
+                case "CustomerId":
+                    orders = _isSortedAscending ? orders.OrderBy(o => o.CustomerId).ToList() : orders.OrderByDescending(o => o.CustomerId).ToList();
+                    _isSortedAscending = !_isSortedAscending;
+                    break;
+                case "OrderDate":
+                    orders = _isSortedAscending ? orders.OrderBy(o => o.OrderDate).ToList() : orders.OrderByDescending(o => o.OrderDate).ToList();
+                    _isSortedAscending = !_isSortedAscending;
+                    break;
+            }
+            OrdersCollectionView.ItemsSource = orders;
+        }
+
+        private void OnSortByCustomerIdClicked(object sender, EventArgs e)
+        {
+            SortOrders("CustomerId");
+        }
+
+        private void OnSortByOrderDateClicked(object sender, EventArgs e)
+        {
+            SortOrders("OrderDate");
+        }
+
+        private void FilterOrders(string criterion, string minValue, string maxValue)
+        {
+            var orders = _masterOrderList;
+            switch (criterion)
+            {
+                case "CustomerId":
+                    if (int.TryParse(minValue, out int minCustomerId) && int.TryParse(maxValue, out int maxCustomerId))
+                    {
+                        orders = orders.Where(o => o.CustomerId >= minCustomerId && o.CustomerId <= maxCustomerId).ToList();
+                    }
+                    else if (int.TryParse(minValue, out minCustomerId))
+                    {
+                        orders = orders.Where(o => o.CustomerId >= minCustomerId).ToList();
+                    }
+                    else if (int.TryParse(maxValue, out maxCustomerId))
+                    {
+                        orders = orders.Where(o => o.CustomerId <= maxCustomerId).ToList();
+                    }
+                    break;
+                case "OrderDate":
+                    if (DateTime.TryParse(minValue, out DateTime minOrderDate) && DateTime.TryParse(maxValue, out DateTime maxOrderDate))
+                    {
+                        orders = orders.Where(o => o.OrderDate.Date >= minOrderDate.Date && o.OrderDate.Date <= maxOrderDate.Date).ToList();
+                    }
+                    else if (DateTime.TryParse(minValue, out minOrderDate))
+                    {
+                        orders = orders.Where(o => o.OrderDate.Date >= minOrderDate.Date).ToList();
+                    }
+                    else if (DateTime.TryParse(maxValue, out maxOrderDate))
+                    {
+                        orders = orders.Where(o => o.OrderDate.Date <= maxOrderDate.Date).ToList();
+                    }
+                    break;
+            }
+            OrdersCollectionView.ItemsSource = orders;
+        }
+
+        private void OnFilterByCustomerIdClicked(object sender, EventArgs e)
+        {
+            FilterOrders("CustomerId", MinCustomerIdEntry.Text, MaxCustomerIdEntry.Text);
+        }
+
+        private void OnFilterByOrderDateClicked(object sender, EventArgs e)
+        {
+            FilterOrders("OrderDate", MinOrderDateEntry.Text, MaxOrderDateEntry.Text);
+        }
+
+        private void OnRefreshFiltersClicked(object sender, EventArgs e)
+        {
+            // Clear all filter inputs
+            MinCustomerIdEntry.Text = string.Empty;
+            MaxCustomerIdEntry.Text = string.Empty;
+            MinOrderDateEntry.Text = string.Empty;
+            MaxOrderDateEntry.Text = string.Empty;
+
+            // Reset the displayed orders to the full list
+            OrdersCollectionView.ItemsSource = _masterOrderList;
         }
 
         protected new void OnPropertyChanged([CallerMemberName] string? propertyName = null)
