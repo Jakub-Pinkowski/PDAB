@@ -38,8 +38,107 @@
                                     TextColor="#ffffff"
                                     Margin="10,0,0,0"/>
                      </HorizontalStackLayout>
+                     <HorizontalStackLayout Margin="10,0,0,0">
+                            <Button Text="Sort by Name"
+                                    Clicked="OnSortByNameClicked"
+                                    BackgroundColor="#ff9800"
+                                    TextColor="#ffffff"
+                                    Margin="0,0,10,0"/>
+                            <Button Text="Sort by Price"
+                                    Clicked="OnSortByPriceClicked"
+                                    BackgroundColor="#ff9800"
+                                    TextColor="#ffffff"
+                                    Margin="0,0,10,0"/>
+                            <Button Text="Sort by Category ID"
+                                    Clicked="OnSortByCategoryIdClicked"
+                                    BackgroundColor="#ff9800"
+                                    TextColor="#ffffff"
+                                    Margin="0,0,10,0"/>
+                            <Button Text="Sort by Supplier ID"
+                                    Clicked="OnSortBySupplierIdClicked"
+                                    BackgroundColor="#ff9800"
+                                    TextColor="#ffffff"
+                                    Margin="0,0,10,0"/>
+                     </HorizontalStackLayout>
+                     <Label Text="Filter by Name"
+                                   Margin="10,0,0,0"/>
+                     <HorizontalStackLayout Margin="10,0,0,0">
+                            <Entry x:Name="MinNameEntry"
+                                   Placeholder="Min Name"
+                                   WidthRequest="150"/>
+                            <Entry x:Name="MaxNameEntry"
+                                   Placeholder="Max Name"
+                                   WidthRequest="150"
+                                   Margin="10,0,0,0"/>
+                            <Button Text="Filter"
+                                    Clicked="OnFilterByNameClicked"
+                                    BackgroundColor="#4caf50"
+                                    TextColor="#ffffff"
+                                    Margin="10,0,0,0"/>
+                     </HorizontalStackLayout>
+                     <Label Text="Filter by Price"
+                                   Margin="10,0,0,0"/>
+                     <HorizontalStackLayout Margin="10,0,0,0">
+                            <Entry x:Name="MinPriceEntry"
+                                   Placeholder="Min Price"
+                                   Keyboard="Numeric"
+                                   WidthRequest="150"/>
+                            <Entry x:Name="MaxPriceEntry"
+                                   Placeholder="Max Price"
+                                   Keyboard="Numeric"
+                                   WidthRequest="150"
+                                   Margin="10,0,0,0"/>
+                            <Button Text="Filter"
+                                    Clicked="OnFilterByPriceClicked"
+                                    BackgroundColor="#4caf50"
+                                    TextColor="#ffffff"
+                                    Margin="10,0,0,0"/>
+                     </HorizontalStackLayout>
+                     <Label Text="Filter by Category ID"
+                                   Margin="10,0,0,0"/>
+                     <HorizontalStackLayout Margin="10,0,0,0">
+                            <Entry x:Name="MinCategoryIdEntry"
+                                   Placeholder="Min Category ID"
+                                   Keyboard="Numeric"
+                                   WidthRequest="150"/>
+                            <Entry x:Name="MaxCategoryIdEntry"
+                                   Placeholder="Max Category ID"
+                                   Keyboard="Numeric"
+                                   WidthRequest="150"
+                                   Margin="10,0,0,0"/>
+                            <Button Text="Filter"
+                                    Clicked="OnFilterByCategoryIdClicked"
+                                    BackgroundColor="#4caf50"
+                                    TextColor="#ffffff"
+                                    Margin="10,0,0,0"/>
+                     </HorizontalStackLayout>
+                     <Label Text="Filter by Supplier ID"
+                                   Margin="10,0,0,0"/>
+                     <HorizontalStackLayout Margin="10,0,0,0">
+                            <Entry x:Name="MinSupplierIdEntry"
+                                   Placeholder="Min Supplier ID"
+                                   Keyboard="Numeric"
+                                   WidthRequest="150"/>
+                            <Entry x:Name="MaxSupplierIdEntry"
+                                   Placeholder="Max Supplier ID"
+                                   Keyboard="Numeric"
+                                   WidthRequest="150"
+                                   Margin="10,0,0,0"/>
+                            <Button Text="Filter"
+                                    Clicked="OnFilterBySupplierIdClicked"
+                                    BackgroundColor="#4caf50"
+                                    TextColor="#ffffff"
+                                    Margin="10,0,0,0"/>
+                     </HorizontalStackLayout>
+                     <HorizontalStackLayout>
+                            <Button Text="Refresh Filters"
+                                    Clicked="OnRefreshFiltersClicked"
+                                    BackgroundColor="#f44336"
+                                    TextColor="#ffffff"
+                                    Margin="10,0,0,0"/>
+                     </HorizontalStackLayout>
                      <!-- Headers for the table -->
-                     <Grid ColumnDefinitions="2*,*,*,*,0.5*,0.5*"
+                     <Grid ColumnDefinitions="*,*,*,*,*,0.5*,0.5*"
                            Padding="10,0">
                             <Label Text="Name"
                                    FontAttributes="Bold"
@@ -64,7 +163,7 @@
                                                  <Border Stroke="#fefae0"
                                                          StrokeShape="RoundRectangle 10"
                                                          Padding="5">
-                                                        <Grid ColumnDefinitions="2*,*,*,*,0.5*,0.5*"
+                                                        <Grid ColumnDefinitions="*,*,*,*,*,0.5*,0.5*"
                                                               Padding="10">
                                                                <Label Text="{Binding Name}"
                                                                       FontSize="20"
