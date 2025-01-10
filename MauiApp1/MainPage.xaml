@@ -94,6 +94,9 @@
                 </ListView.ItemTemplate>
             </ListView>
             <!-- Product Reviews View -->
+            <ScrollView>
+                <StackLayout x:Name="ProductReviewChart"/>
+            </ScrollView>
             <Label
                 Text="Product Reviews - business logic view #2"
                 Style="{StaticResource Headline}"

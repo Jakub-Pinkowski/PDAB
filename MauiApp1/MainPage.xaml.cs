@@ -55,7 +55,7 @@ namespace MauiApp1
         private async void LoadData()
         {
             await LoadCustomerTotalAmount();
-            await LoadProductReviews();
+            await LoadProductReviewChart();
             await LoadOrderDetails();
         }
 
@@ -112,9 +112,48 @@ namespace MauiApp1
             CustomerOrdersListView.ItemsSource = aggregatedOrders;
         }
 
-        private async Task LoadProductReviews()
+        private async Task LoadProductReviewChart()
         {
             var productReviews = await _databaseService.GetProductReviewsAsync();
+            var productRatings = productReviews
+                .GroupBy(pr => pr.ProductName)
+                .Select(g => new
+                {
+                    ProductName = g.Key,
+                    AverageRating = g.Average(pr => pr.Rating)
+                })
+                .OrderByDescending(pr => pr.AverageRating)
+                .ToList();
+
+            var maxRating = productRatings.Max(pr => pr.AverageRating);
+
+            ProductReviewChart.Children.Clear();
+
+            foreach (var pr in productRatings)
+            {
+                var bar = new BoxView
+                {
+                    HeightRequest = 20,
+                    WidthRequest = (double)(pr.AverageRating / maxRating) * 300,
+                    Color = Colors.Green,
+                    HorizontalOptions = LayoutOptions.Start
+                };
+
+                var label = new Label
+                {
+                    Text = $"{pr.ProductName}: {pr.AverageRating:F1}",
+                    VerticalOptions = LayoutOptions.Center
+                };
+
+                var stack = new StackLayout
+                {
+                    Orientation = StackOrientation.Horizontal,
+                    Children = { bar, label }
+                };
+
+                ProductReviewChart.Children.Add(stack);
+            }
+
             ProductReviewsListView.ItemsSource = productReviews;
         }
 
