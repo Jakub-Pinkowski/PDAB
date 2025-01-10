@@ -9,7 +9,8 @@ using System.Threading.Tasks;
 using Microsoft.Maui.Controls;
 using System.Collections.ObjectModel;
 using System.Net.Http;
-using dotenv.net;
+using Microsoft.Maui.Storage;
+using System.Diagnostics;
 
 
 namespace MauiApp1
@@ -26,9 +27,77 @@ namespace MauiApp1
             LoadData();
             ChatListView.ItemsSource = chatMessages;
 
+            Debug.WriteLine("MainPage constructor called.");
+        }
 
-            // Load environment variables from .env file
-            DotEnv.Load();
+        private async void OnSendButtonClicked(object sender, EventArgs e)
+        {
+            string userInput = UserInputEntry.Text;
+            Debug.WriteLine($"User Input: {userInput}");
+            if (!string.IsNullOrEmpty(userInput))
+            {
+                chatMessages.Add("You: " + userInput);
+                UserInputEntry.Text = string.Empty;
+
+                string aiResponse = await GetAIResponse(userInput);
+                Debug.WriteLine($"AI Response: {aiResponse}");
+                chatMessages.Add("AI: " + aiResponse);
+                Debug.WriteLine($"chatMessages: {chatMessages}");
+            }
+        }
+
+        public class Message
+        {
+            public string Text { get; set; }
+        }
+        private async Task<string> GetAIResponse(string userInput)
+        {
+            // Load the API key from SecureStorage before using it
+            // TODO: Manually fill that in later
+            string apiKey = "empty_lol";
+            if (string.IsNullOrEmpty(apiKey))
+            {
+                throw new Exception("API Key not found.");
+            }
+
+            string apiUrl = "https://api.openai.com/v1/chat/completions";
+
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Add("Authorization", $"Bearer {apiKey}");
+
+                var requestBody = new
+                {
+                    model = "gpt-3.5-turbo",
+                    messages = new[]
+                    {
+                        new { role = "user", content = userInput }
+                    },
+                    max_tokens = 150
+                };
+
+                string jsonRequestBody = JsonSerializer.Serialize(requestBody);
+                StringContent content = new StringContent(jsonRequestBody, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = await client.PostAsync(apiUrl, content);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    string errorResponse = await response.Content.ReadAsStringAsync();
+                    Debug.WriteLine($"Error Response: {errorResponse}");
+                    throw new Exception($"API request failed with status code {response.StatusCode}: {errorResponse}");
+                }
+
+                string jsonResponse = await response.Content.ReadAsStringAsync();
+                Debug.WriteLine($"Response Body: {jsonResponse}");
+                var jsonDocument = JsonDocument.Parse(jsonResponse);
+                Debug.WriteLine($"JSON Document: {jsonDocument}");
+                string aiResponse = jsonDocument.RootElement.GetProperty("choices")[0].GetProperty("message").GetProperty("content").GetString();
+
+                Debug.WriteLine($"AI Response: {aiResponse}");
+
+                return aiResponse.Trim();
+            }
         }
 
         private async void OnBackupDatabaseClicked(object sender, EventArgs e)
@@ -54,48 +123,6 @@ namespace MauiApp1
                 await _databaseService.ResetDatabaseAsync();
                 await DisplayAlert("Success", "Database has been reset.", "OK");
                 LoadData();
-            }
-        }
-
-        private async void OnSendButtonClicked(object sender, EventArgs e)
-        {
-            string userInput = UserInputEntry.Text;
-            if (!string.IsNullOrEmpty(userInput))
-            {
-                chatMessages.Add("You: " + userInput);
-                UserInputEntry.Text = string.Empty;
-
-                string aiResponse = await GetAIResponse(userInput);
-                chatMessages.Add("AI: " + aiResponse);
-            }
-        }
-
-        private async Task<string> GetAIResponse(string userInput)
-        {
-            string apiKey = Environment.GetEnvironmentVariable("OPENAI_API_KEY");
-            string apiUrl = "https://api.openai.com/v1/engines/davinci-codex/completions";
-
-            using (HttpClient client = new HttpClient())
-            {
-                client.DefaultRequestHeaders.Add("Authorization", $"Bearer {apiKey}");
-
-                var requestBody = new
-                {
-                    prompt = userInput,
-                    max_tokens = 150
-                };
-
-                string jsonRequestBody = JsonSerializer.Serialize(requestBody);
-                StringContent content = new StringContent(jsonRequestBody, Encoding.UTF8, "application/json");
-
-                HttpResponseMessage response = await client.PostAsync(apiUrl, content);
-                response.EnsureSuccessStatusCode();
-
-                string jsonResponse = await response.Content.ReadAsStringAsync();
-                var jsonDocument = JsonDocument.Parse(jsonResponse);
-                string aiResponse = jsonDocument.RootElement.GetProperty("choices")[0].GetProperty("text").GetString();
-
-                return aiResponse.Trim();
             }
         }
 
