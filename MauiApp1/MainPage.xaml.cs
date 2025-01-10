@@ -56,7 +56,7 @@ namespace MauiApp1
         {
             await LoadCustomerTotalAmount();
             await LoadProductReviewChart();
-            await LoadOrderDetails();
+            await LoadOrderItemsChart();
         }
 
         private async Task LoadCustomerTotalAmount()
@@ -157,10 +157,49 @@ namespace MauiApp1
             ProductReviewsListView.ItemsSource = productReviews;
         }
 
-        private async Task LoadOrderDetails()
+        private async Task LoadOrderItemsChart()
         {
-            var orderDetails = await _databaseService.GetOrderDetailsAsync();
-            OrderDetailsListView.ItemsSource = orderDetails;
+            var orderItems = await _databaseService.GetOrderDetailsAsync();
+            var productCounts = orderItems
+                .GroupBy(oi => oi.ProductName)
+                .Select(g => new
+                {
+                    ProductName = g.Key,
+                    Count = g.Count()
+                })
+                .OrderByDescending(pc => pc.Count)
+                .ToList();
+
+            var maxCount = productCounts.Max(pc => pc.Count);
+
+            OrderItemsChart.Children.Clear();
+
+            foreach (var pc in productCounts)
+            {
+                var bar = new BoxView
+                {
+                    HeightRequest = 20,
+                    WidthRequest = maxCount > 0 ? (double)(pc.Count / (double)maxCount) * 300 : 0,
+                    Color = Colors.Red,
+                    HorizontalOptions = LayoutOptions.Start
+                };
+
+                var label = new Label
+                {
+                    Text = $"{pc.ProductName}: {pc.Count} times",
+                    VerticalOptions = LayoutOptions.Center
+                };
+
+                var stack = new StackLayout
+                {
+                    Orientation = StackOrientation.Horizontal,
+                    Children = { bar, label }
+                };
+
+                OrderItemsChart.Children.Add(stack);
+            }
+
+            OrderDetailsListView.ItemsSource = orderItems;
         }
     }
 }

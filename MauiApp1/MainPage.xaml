@@ -172,6 +172,9 @@
                 </ListView.ItemTemplate>
             </ListView>
             <!-- Order Details View -->
+            <ScrollView>
+                <StackLayout x:Name="OrderItemsChart"/>
+            </ScrollView>
             <Label
                 Text="Order Details - business logic view #3"
                 Style="{StaticResource Headline}"
