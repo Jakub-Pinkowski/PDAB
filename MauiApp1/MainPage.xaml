@@ -12,9 +12,9 @@
                 Aspect="AspectFit"
                 SemanticProperties.Description="dot net bot in a hovercraft number nine"/>
             <StackLayout Orientation="Horizontal"
-                    Padding="10">
+                         Padding="10">
                 <Label Text="Dark Mode"
-                        VerticalOptions="Center"/>
+                       VerticalOptions="Center"/>
                 <Switch Toggled="OnDarkModeToggled"/>
             </StackLayout>
             <Label
@@ -37,7 +37,7 @@
                 Text="Refresh Data"
                 Clicked="OnRefreshDataClicked"/>
 
-                <!-- Google Map View -->
+            <!-- Google Map View -->
             <Label
                 Text="Our Location"
                 Style="{StaticResource Headline}"
@@ -57,6 +57,31 @@
                     </HtmlWebViewSource>
                 </WebView.Source>
             </WebView>
+
+            <!-- AI Chatbox -->
+            <Label
+                Text="AI Chatbox"
+                Style="{StaticResource Headline}"
+                SemanticProperties.HeadingLevel="Level2"/>
+            <StackLayout>
+                <ListView x:Name="ChatListView"
+                          HasUnevenRows="True">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Label Text="{Binding}"/>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <StackLayout Orientation="Horizontal">
+                    <Entry x:Name="UserInputEntry"
+                           Placeholder="Type your message here"
+                           HorizontalOptions="FillAndExpand"/>
+                    <Button Text="Send"
+                            Clicked="OnSendButtonClicked"/>
+                </StackLayout>
+            </StackLayout>
 
             <!-- Customer Orders View -->
             <ScrollView>

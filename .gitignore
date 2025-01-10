@@ -63,3 +63,6 @@ Generated\
 # Backup files
 *.bak
 *.swp
+
+# Environment variables
+.env

@@ -4,20 +4,31 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.Maui.Controls;
+using System.Collections.ObjectModel;
+using System.Net.Http;
+using dotenv.net;
+
 
 namespace MauiApp1
 {
     public partial class MainPage : ContentPage
     {
         private readonly DatabaseService _databaseService;
+        private ObservableCollection<string> chatMessages = new ObservableCollection<string>();
 
         public MainPage(DatabaseService databaseService)
         {
             InitializeComponent();
             _databaseService = databaseService;
             LoadData();
+            ChatListView.ItemsSource = chatMessages;
+
+
+            // Load environment variables from .env file
+            DotEnv.Load();
         }
 
         private async void OnBackupDatabaseClicked(object sender, EventArgs e)
@@ -43,6 +54,48 @@ namespace MauiApp1
                 await _databaseService.ResetDatabaseAsync();
                 await DisplayAlert("Success", "Database has been reset.", "OK");
                 LoadData();
+            }
+        }
+
+        private async void OnSendButtonClicked(object sender, EventArgs e)
+        {
+            string userInput = UserInputEntry.Text;
+            if (!string.IsNullOrEmpty(userInput))
+            {
+                chatMessages.Add("You: " + userInput);
+                UserInputEntry.Text = string.Empty;
+
+                string aiResponse = await GetAIResponse(userInput);
+                chatMessages.Add("AI: " + aiResponse);
+            }
+        }
+
+        private async Task<string> GetAIResponse(string userInput)
+        {
+            string apiKey = Environment.GetEnvironmentVariable("OPENAI_API_KEY");
+            string apiUrl = "https://api.openai.com/v1/engines/davinci-codex/completions";
+
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Add("Authorization", $"Bearer {apiKey}");
+
+                var requestBody = new
+                {
+                    prompt = userInput,
+                    max_tokens = 150
+                };
+
+                string jsonRequestBody = JsonSerializer.Serialize(requestBody);
+                StringContent content = new StringContent(jsonRequestBody, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = await client.PostAsync(apiUrl, content);
+                response.EnsureSuccessStatusCode();
+
+                string jsonResponse = await response.Content.ReadAsStringAsync();
+                var jsonDocument = JsonDocument.Parse(jsonResponse);
+                string aiResponse = jsonDocument.RootElement.GetProperty("choices")[0].GetProperty("text").GetString();
+
+                return aiResponse.Trim();
             }
         }
 
