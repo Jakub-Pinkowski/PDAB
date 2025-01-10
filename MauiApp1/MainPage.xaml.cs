@@ -42,7 +42,8 @@ namespace MauiApp1
                 string aiResponse = await GetAIResponse(userInput);
                 Debug.WriteLine($"AI Response: {aiResponse}");
                 chatMessages.Add("AI: " + aiResponse);
-                Debug.WriteLine($"chatMessages: {chatMessages}");
+
+                LoadData();
             }
         }
 
@@ -89,12 +90,8 @@ namespace MauiApp1
                 }
 
                 string jsonResponse = await response.Content.ReadAsStringAsync();
-                Debug.WriteLine($"Response Body: {jsonResponse}");
                 var jsonDocument = JsonDocument.Parse(jsonResponse);
-                Debug.WriteLine($"JSON Document: {jsonDocument}");
                 string aiResponse = jsonDocument.RootElement.GetProperty("choices")[0].GetProperty("message").GetProperty("content").GetString();
-
-                Debug.WriteLine($"AI Response: {aiResponse}");
 
                 return aiResponse.Trim();
             }

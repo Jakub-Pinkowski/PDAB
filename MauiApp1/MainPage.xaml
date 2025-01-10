@@ -62,25 +62,36 @@
             <Label
                 Text="AI Chatbox"
                 Style="{StaticResource Headline}"
-                SemanticProperties.HeadingLevel="Level2"/>
-            <StackLayout>
+                SemanticProperties.HeadingLevel="Level2"
+                FontSize="24"
+                Margin="0,20,0,10"/>
+            <StackLayout Padding="10">
                 <ListView x:Name="ChatListView"
-                          HasUnevenRows="True">
+                          HasUnevenRows="True"
+                          Margin="0,0,0,20">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <Label Text="{Binding}"/>
+                                <Label Text="{Binding}"
+                                       FontSize="18"
+                                       Margin="10,5"/>
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                <StackLayout Orientation="Horizontal">
+                <Grid ColumnDefinitions="*, Auto"
+                        RowSpacing="10">
                     <Entry x:Name="UserInputEntry"
                            Placeholder="Type your message here"
-                           HorizontalOptions="FillAndExpand"/>
+                           FontSize="18"
+                           Margin="0,0,10,0"
+                           Grid.Column="0"/>
                     <Button Text="Send"
-                            Clicked="OnSendButtonClicked"/>
-                </StackLayout>
+                            Clicked="OnSendButtonClicked"
+                            FontSize="18"
+                            Padding="10,5"
+                            Grid.Column="1"/>
+                </Grid>
             </StackLayout>
 
             <!-- Customer Orders View -->
