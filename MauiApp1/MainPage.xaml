@@ -11,6 +11,12 @@
                 HeightRequest="185"
                 Aspect="AspectFit"
                 SemanticProperties.Description="dot net bot in a hovercraft number nine"/>
+            <StackLayout Orientation="Horizontal"
+                    Padding="10">
+                <Label Text="Dark Mode"
+                        VerticalOptions="Center"/>
+                <Switch Toggled="OnDarkModeToggled"/>
+            </StackLayout>
             <Label
                 Text="Home"
                 Style="{StaticResource Headline}"
