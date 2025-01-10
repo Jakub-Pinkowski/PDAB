@@ -196,7 +196,6 @@
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"/>
@@ -241,14 +240,6 @@
                                        Padding="0,0,10,0"/>
                                 <Label Text="{Binding Price, StringFormat='Price: {0:C}'}"
                                        Grid.Row="4"
-                                       Grid.Column="1"/>
-                                <Label Text="Total Amount:"
-                                       FontAttributes="Bold"
-                                       Grid.Row="5"
-                                       Grid.Column="0"
-                                       Padding="0,0,10,0"/>
-                                <Label Text="{Binding TotalAmount, StringFormat='Total Amount: {0:C}'}"
-                                       Grid.Row="5"
                                        Grid.Column="1"/>
                             </Grid>
                         </ViewCell>
